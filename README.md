@@ -1,3 +1,5 @@
 # RISCV-READ
 
-[01_RISC-V简介](01_RISC-V.md)
+[01 RISC-V](01_RISC-V.md)
+
+[02 RV32I](02-RV32I.md)
