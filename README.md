@@ -19,4 +19,4 @@
 
 [09 RV64](09_RV64.md)
 
-[10 M and S Mode](10_M&SMode.md)
+[10 Privileged Mode](10_PrivilegedMode.md)
