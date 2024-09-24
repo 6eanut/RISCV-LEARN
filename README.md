@@ -20,3 +20,5 @@
 [09 RV64](09_RV64.md)
 
 [10 Privileged Mode](10_PrivilegedMode.md)
+
+[11 Optional Extensions](11_OptionalExtensions.md)
