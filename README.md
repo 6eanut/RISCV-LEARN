@@ -1,5 +1,7 @@
 # RISCV-READ
 
+> 本仓库是一个[RISC-V-Reader-Chinese-v1](RISC-V-Reader-Chinese-v1.pdf)手册的阅读笔记
+
 [01 RISC-V](01_RISC-V.md)
 
 [02 RV32I](02_RV32I.md)
