@@ -12,8 +12,7 @@
 
 [05 RV32F and RV32D](05_RV32FandRV32D.md)
 
-[06 RV32A
-](06_RV32A.md)
+[06 RV32A](06_RV32A.md)
 
 [07 RV32C](07_RV32C.md)
 
