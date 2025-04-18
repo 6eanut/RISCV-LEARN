@@ -33,8 +33,4 @@
 
 [02 Load Immediate](tidbits/02_loadImmediate.md)
 
-03 B-Type
-
-04 jal jalr
-
-05 asm2c c2asm
+[03 B-type](tidbits/03_Btype.md)

@@ -22,3 +22,38 @@
 文件系统负责管理文件的存储位置和元数据，文件格式定义数据如何存储和解析，故后者也涉及字节序的问题。
 
 文件系统是操作系统层，文件格式是应用层，而通信层还包括协议，例如http、nfs等，其主要处理不同系统或设备之间的交互，同样涉及字节序问题。
+
+## 例子
+
+这里有一个C语言程序：
+
+```c
+#include <stdio.h>
+int main()
+{
+    int a = 0x12345678;
+    printf("a: 0x%02x\n", a);
+    printf("address of a: %p\n", (void *)&a);
+    unsigned char *p = (unsigned char *)&a;
+    for (int i = 0; i < sizeof(a); i++)
+    {
+        printf("address: %p, value: 0x%02x\n", p + i, *(p + i));
+    }
+    return 0;
+}
+```
+
+经过编译和执行有：
+
+```shell
+# gcc byteOrder.c  -o byteOrder
+# ./byteOrder
+a: 0x12345678
+address of a: 0x3fc872d30c
+address: 0x3fc872d30c, value: 0x78
+address: 0x3fc872d30d, value: 0x56
+address: 0x3fc872d30e, value: 0x34
+address: 0x3fc872d30f, value: 0x12
+```
+
+可以看到，这是小端序的存储方式。
