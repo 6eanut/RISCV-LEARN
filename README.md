@@ -22,4 +22,19 @@
 
 [10 Privileged Mode](10_PrivilegedMode.md)
 
-[11 Optional Extensions](11_OptionalExtensions.md)
+[11 Optional Extensions
+](11_OptionalExtensions.md)
+
+---
+
+**Tidbits**
+
+[01 Byte Order](tidbits/01_byteOrder.md)
+
+[02 Load Immediate](tidbits/02_loadImmediate.md)
+
+03 B-Type
+
+04 jal jalr
+
+05 asm2c c2asm

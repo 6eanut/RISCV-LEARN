@@ -1,6 +1,6 @@
 # RISC-V
 
-RISC-V读音为RISC-FIVE
+RISC-V读音为RISK-FIVE
 
 ## 0. RISC-V的目标
 
