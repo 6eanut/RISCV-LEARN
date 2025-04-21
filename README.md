@@ -1,6 +1,8 @@
-# RISCV-READ
+# RISCV-LEARN
 
-> 本仓库是一个[RISC-V-Reader-Chinese-v1](RISC-V-Reader-Chinese-v1.pdf)手册的阅读笔记
+**RISC-V-Reader-Chinese-v1手册的阅读笔记**
+
+[手册原文](RISC-V-Reader-Chinese-v1.pdf)
 
 [01 RISC-V](01_RISC-V.md)
 
@@ -22,8 +24,7 @@
 
 [10 Privileged Mode](10_PrivilegedMode.md)
 
-[11 Optional Extensions
-](11_OptionalExtensions.md)
+[11 Optional Extensions](11_OptionalExtensions.md)
 
 ---
 
@@ -34,3 +35,11 @@
 [02 Load Immediate](tidbits/02_loadImmediate.md)
 
 [03 B-type](tidbits/03_Btype.md)
+
+---
+
+**RVOS**
+
+[01 Startup](rvos/01_startup/note/01_startup.md)
+
+[02 UART](rvos/02_uart/note/02_uart.md)
