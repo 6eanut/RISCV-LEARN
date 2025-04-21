@@ -1,6 +1,6 @@
-#include"../c_code/include/platform.h"
+#include "../c_code/include/platform.h"
 
-    .equ    STACK_SIZE 1024
+    .equ    STACK_SIZE, 1024
     .global _start
     .text
 _start:
@@ -13,7 +13,7 @@ park:
     wfi
     j park
 
-.balign
+.balign 16
 stacks:
-    .skip STACK_SIZE*MAXNUM_CPU
+    .skip STACK_SIZE * MAXNUM_CPU
     .end
