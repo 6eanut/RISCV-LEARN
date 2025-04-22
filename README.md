@@ -1,30 +1,30 @@
 # RISCV-LEARN
 
-**RISC-V-Reader-Chinese-v1手册的阅读笔记**
+**RISC-V-Reader**
 
-[手册原文](RISC-V-Reader-Chinese-v1.pdf)
+[手册原文](rvreader/RISC-V-Reader-Chinese-v1.pdf)
 
-[01 RISC-V](01_RISC-V.md)
+[01 ISC-V](rvreader/01_RISC-V.md)
 
-[02 RV32I](02_RV32I.md)
+[02 RV32I](rvreader/02_RV32I.md)
 
-[03 .c-&gt;.s-&gt;.o-&gt;.out](03_c-s-o-out.md)
+[03 .c-&gt;.s-&gt;.o-&gt;.out](rvreader/03_c-s-o-out.md)
 
-[04 RV32M](04_RV32M.md)
+[04 RV32M](rvreader/04_RV32M.md)
 
-[05 RV32F and RV32D](05_RV32FandRV32D.md)
+[05 RV32F and RV32D](rvreader/05_RV32FandRV32D.md)
 
-[06 RV32A](06_RV32A.md)
+[06 RV32A](rvreader/06_RV32A.md)
 
-[07 RV32C](07_RV32C.md)
+[07 RV32C](rvreader/07_RV32C.md)
 
-[08 RV32V](08_RV32V.md)
+[08 RV32V](rvreader/08_RV32V.md)
 
-[09 RV64](09_RV64.md)
+[09 RV64](rvreader/09_RV64.md)
 
-[10 Privileged Mode](10_PrivilegedMode.md)
+[10 Privileged Mode](rvreader/10_PrivilegedMode.md)
 
-[11 Optional Extensions](11_OptionalExtensions.md)
+[11 Optional Extensions](rvreader/11_OptionalExtensions.md)
 
 ---
 
@@ -43,3 +43,5 @@
 [01 Startup](rvos/01_startup/note/01_startup.md)
 
 [02 UART](rvos/02_uart/note/02_uart.md)
+
+03 Memory

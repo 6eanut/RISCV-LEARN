@@ -71,21 +71,21 @@ void page_init()
 {
     ptr_t _heap_start_aligned = _align_ptr(HEAP_START);
     uint32_t num_reserved_pages = LENGTH_RAM / (PAGE_SIZE * PAGE_SIZE);
+    _alloc_start = _heap_start_aligned + num_reserved_pages * PAGE_SIZE;
     _num_pages = (HEAP_SIZE - (_heap_start_aligned - HEAP_START)) / PAGE_SIZE - num_reserved_pages;
-    printf("LENGTH_RAM = %d\n", LENGTH_RAM);
+    _alloc_end = _alloc_start + _num_pages * PAGE_SIZE;
+
+    // printf("index nums = %d\n", _alloc_start - HEAP_START);
     printf("HEAP_START = %p (aligned to %p), HEAP_SIZE = 0x%lx, \n"
            "num of reserved pages = %d, num of pages to be allocated for heap = %d\n",
            HEAP_START, _heap_start_aligned, HEAP_SIZE, num_reserved_pages, _num_pages);
 
     struct Page_index *pi = (struct Page_index *)HEAP_START;
-    for (int i = 0; i < num_reserved_pages; ++i)
+    for (int i = 0; i < _num_pages; ++i)
     {
         _clear(pi);
         pi++;
     }
-
-    _alloc_start = _heap_start_aligned + num_reserved_pages * PAGE_SIZE;
-    _alloc_end = _alloc_start + _num_pages * PAGE_SIZE;
 
     printf("HEAP    :   %p -> %p\n", _alloc_start, _alloc_end);
     printf("BSS     :   %p -> %p\n", BSS_START, BSS_END);
@@ -204,6 +204,9 @@ void page_free_debug(void *p)
 
 void page_test()
 {
+    void *p0 = page_alloc_debug(1);
+    printf("p0 = %p\n", p0);
+
     void *p1 = page_alloc_debug(4);
     printf("p1 = %p\n", p1);
 
@@ -217,4 +220,7 @@ void page_test()
 
     void *p4 = page_alloc_debug(3);
     printf("p4 = %p\n", p4);
+
+    void *p5 = page_alloc_debug(1);
+    printf("p5 = %p\n", p5);
 }
