@@ -1,0 +1,6 @@
+set disassemble-next-line on
+layout asm
+layout regs
+b _start
+target remote:1234
+c
