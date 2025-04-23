@@ -36,6 +36,8 @@
 
 [03 B-type](tidbits/03_Btype.md)
 
+[04 ASM and C](tidbits/04_asmAndc.md)
+
 ---
 
 **RVOS**
@@ -44,4 +46,6 @@
 
 [02 UART](rvos/02_uart/note/02_uart.md)
 
-03 Memory
+[03 Memory](rvos/03_memory/note/03_memory.md)
+
+[04 Context Switch](rvos/04_contextSwitch/note/04_contextSwitch.md)
