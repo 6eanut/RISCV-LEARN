@@ -81,4 +81,25 @@ init:
     mv t6, a0
     write_reg_from_ctx t6
     ret
+
+.global read_t3
+read_t3:
+    mv a0, t3
+    ret
+
+.global write_t3
+write_t3:
+    mv t3, a0
+    ret
+
+.global read_t4
+read_t4:
+    mv a0, t4
+    ret
+
+.global write_t4
+write_t4:
+    mv t4, a0
+    ret
+
 .end
