@@ -49,3 +49,5 @@
 [03 Memory](rvos/03_memory/note/03_memory.md)
 
 [04 Context Switch](rvos/04_contextSwitch/note/04_contextSwitch.md)
+
+[05 Trap](rvos/05_trap/note/05_trap.md)
