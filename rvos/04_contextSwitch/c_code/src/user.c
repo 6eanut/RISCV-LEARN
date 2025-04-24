@@ -1,5 +1,13 @@
 #include "../include/os.h"
 
+void task_yield();
+void task_delay(volatile int);
+int task_create(void (*)(void));
+int read_t3();
+int read_t4();
+void write_t3();
+void write_t4();
+
 #define DELAY 1000
 
 void user_task0(void)
@@ -109,8 +117,6 @@ void debug_user_task1()
         task_yield();
     }
 }
-
-
 
 void os_main()
 {

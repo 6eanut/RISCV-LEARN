@@ -1,5 +1,7 @@
 #include "../include/os.h"
 
+void switch_to(struct context *);
+
 #define MAX_TASKS 10
 #define STACK_SIZE 1024
 
