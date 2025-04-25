@@ -51,3 +51,5 @@
 [04 Context Switch](rvos/04_contextSwitch/note/04_contextSwitch.md)
 
 [05 Trap](rvos/05_trap/note/05_trap.md)
+
+[06 PLIC](rvos/06_plic/note/06_plic.md)
