@@ -53,3 +53,5 @@
 [05 Trap](rvos/05_trap/note/05_trap.md)
 
 [06 PLIC](rvos/06_plic/note/06_plic.md)
+
+[07 Hardware Timer](rvos/07_hwtimer/note/07_hwtimer.md)
