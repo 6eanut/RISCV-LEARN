@@ -1,0 +1,4 @@
+set disassemble-next-line on
+b preemptive_switch
+target remote:1234
+c
