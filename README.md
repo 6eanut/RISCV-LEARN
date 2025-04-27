@@ -55,3 +55,5 @@
 [06 PLIC](rvos/06_plic/note/06_plic.md)
 
 [07 Hardware Timer](rvos/07_hwtimer/note/07_hwtimer.md)
+
+[08 MultiTasks](rvos/08_multitasks/note/08_multitasks.md)
