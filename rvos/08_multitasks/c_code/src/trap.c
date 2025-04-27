@@ -11,10 +11,10 @@ extern void trap_vector();
 void software_interrupt_handler()
 {
     *(ptr_t *)(CLINT_BASE + CLINT_MSIP_BASE + 4 * read_mhartid()) = 0;
-    switch_task_collaborative();
+    switch_task();
 }
 
-reg_t timer_interrupt_handler()
+void timer_interrupt_handler()
 {
     // reg_t mip = read_mip();
     // printf("timer_interrupt_handler start, mip = %lx\n", mip);
@@ -22,9 +22,8 @@ reg_t timer_interrupt_handler()
     // mip = read_mip();
     // printf("timer_interrupt_handler end, mip = %lx\n", mip);
     // printf("before switch_task, return_epc = %lx\n", read_mepc());
-    reg_t return_epc = switch_task_preemptive();
+    switch_task();
     // printf("after switch_task, return_epc = %lx\n", return_epc);
-    return return_epc;
 }
 
 void external_interrupt_handler()
@@ -53,9 +52,8 @@ void trap_init()
     // printf("mtvec = %p\n", mtvec);
 }
 
-reg_t trap_handler(reg_t mepc, reg_t mcause)
+void trap_handler( reg_t mcause)
 {
-    reg_t return_epc = mepc;
     reg_t cause_code = mcause & MCAUSE_MASK_ECODE;
     if (mcause & MCAUSE_MASK_INTERRUPT)
     {
@@ -68,7 +66,7 @@ reg_t trap_handler(reg_t mepc, reg_t mcause)
             break;
         case 7:
             uart_puts("Timer Interruption\n");
-            return_epc = timer_interrupt_handler();
+            timer_interrupt_handler();
             break;
         case 11:
             uart_puts("External Interruption\n");
@@ -84,5 +82,4 @@ reg_t trap_handler(reg_t mepc, reg_t mcause)
         printf("Exception Happened, Exception Code: %ld\n", cause_code);
         panic("What can I do");
     }
-    return return_epc;
 }

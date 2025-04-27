@@ -12,11 +12,8 @@ trap_vector:
 
     csrw mscratch, t6
 
-    csrr a0, mepc
-    csrr a1, mcause
+    csrr a0, mcause
     call trap_handler
-
-    csrw mepc, a0
 
     csrr t6, mscratch
     write_reg_from_ctx t6

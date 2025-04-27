@@ -5,21 +5,13 @@
 .global switch_from_null_to_first
 .balign 4
 switch_from_null_to_first:
-    csrrw t6, mscratch, t6
     csrw mscratch, a0
     mv t6, a0
     write_reg_from_ctx t6
     ret
 
-.global preemptive_switch
-preemptive_switch:
-    csrw mscratch, a0
-
-    lw a0, 31*REG_SIZE(a0)
-    ret
-
-.global collaborative_switch
-collaborative_switch:
+.global switch_to
+switch_to:
     csrw mscratch, a0
     ret
 
