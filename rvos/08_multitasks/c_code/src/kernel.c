@@ -8,7 +8,7 @@ extern void os_main();
 extern void run_os();
 extern void trap_init();
 extern void plic_init();
-extern void hwtimer_init();
+extern void clint_init();
 
 void start_kernel(void)
 {
@@ -26,8 +26,8 @@ void start_kernel(void)
     // plic
     plic_init();
 
-    // hardware timer
-    hwtimer_init();
+    // CLINT: hardware timer interrupt and software interrupt
+    clint_init();
 
     // int mscratch = read_mscratch();
     // printf("mscratch = %p\n", mscratch);

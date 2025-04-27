@@ -1,16 +1,5 @@
 #include "../include/os.h"
 
-#define PLIC_BASE 0xc000000L
-#define PLIC_ENABLE_BASE 0x2000
-#define PLIC_ENABLE_STRIDE 0x80
-#define PLIC_PRIORITY_BASE 0x00
-// CONTEXT : threadhold, claim/complete
-#define PLIC_CONTEXT_BASE 0x200000
-#define PLIC_CONTEXT_STRIDE 0x1000
-#define PLIC_CONTEXT_THREADHOLD_BASE 0x00
-#define PLIC_CONTEXT_CLAIM_BASE 0x04
-#define PLIC_CONTEXT_COMPLETE_BASE 0x04
-
 void enable_mstatus_mie()
 {
     reg_t _mstatus;

@@ -20,14 +20,7 @@ preemptive_switch:
 
 .global collaborative_switch
 collaborative_switch:
-    csrrw t6, mscratch, t6
-    csrw mepc, ra
-    write_ctx_from_reg t6
-
     csrw mscratch, a0
-
-    mv t6, a0
-    write_reg_from_ctx t6
     ret
 
 .end

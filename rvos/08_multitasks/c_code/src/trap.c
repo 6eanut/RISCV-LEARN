@@ -1,12 +1,18 @@
 #include "../include/os.h"
 
+extern void trap_vector();
+
 // MCAUSE = INTERRUPT[31] + Exception CODE[30:0]
 // INTERRUPT
 #define MCAUSE_MASK_INTERRUPT (reg_t)0x80000000
 // Exception CODE
 #define MCAUSE_MASK_ECODE (reg_t)0x7fffffff
 
-extern void trap_vector();
+void software_interrupt_handler()
+{
+    *(ptr_t *)(CLINT_BASE + CLINT_MSIP_BASE + 4 * read_mhartid()) = 0;
+    switch_task_collaborative();
+}
 
 reg_t timer_interrupt_handler()
 {
@@ -16,7 +22,7 @@ reg_t timer_interrupt_handler()
     // mip = read_mip();
     // printf("timer_interrupt_handler end, mip = %lx\n", mip);
     // printf("before switch_task, return_epc = %lx\n", read_mepc());
-    reg_t return_epc = switch_task();
+    reg_t return_epc = switch_task_preemptive();
     // printf("after switch_task, return_epc = %lx\n", return_epc);
     return return_epc;
 }
@@ -58,6 +64,7 @@ reg_t trap_handler(reg_t mepc, reg_t mcause)
         {
         case 3:
             uart_puts("Software Interruption\n");
+            software_interrupt_handler();
             break;
         case 7:
             uart_puts("Timer Interruption\n");

@@ -11,12 +11,6 @@ extern ptr_t DATA_END;
 extern ptr_t BSS_START;
 extern ptr_t BSS_END;
 
-#define PAGE_SIZE 4096
-#define PAGE_ORDER 12
-
-#define PAGE_TAKEN (1 << 0)
-#define PAGE_LAST (1 << 1)
-
 static ptr_t _alloc_start = 0;
 static ptr_t _alloc_end = 0;
 static uint32_t _num_pages = 0;
@@ -25,6 +19,11 @@ struct Page_index
 {
     uint8_t flag;
 };
+
+#define PAGE_SIZE 4096
+#define PAGE_ORDER 12
+#define PAGE_TAKEN (1 << 0)
+#define PAGE_LAST (1 << 1)
 
 static inline void _clear(struct Page_index *pi)
 {

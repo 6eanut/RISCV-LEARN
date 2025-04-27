@@ -1,11 +1,11 @@
 #include "../include/os.h"
 
+#define MAX_TASKS 10
+#define STACK_SIZE 1024
+
 void switch_from_null_to_first(struct context *);
 reg_t preemptive_switch(struct context *);
 void collaborative_switch(struct context *);
-
-#define MAX_TASKS 10
-#define STACK_SIZE 1024
 
 static int _top = 0;
 static int _current = -1;
@@ -42,9 +42,7 @@ int task_create(void (*task_entry)(void))
 
 void task_yield()
 {
-    _current = (_current + 1) % _top;
-    struct context *next = &tasks_ctx[_current];
-    return collaborative_switch(next);
+    *(ptr_t *)(CLINT_BASE + CLINT_MSIP_BASE + 4 * read_mhartid()) = 1;
 }
 
 void task_delay(volatile int count)
@@ -54,7 +52,14 @@ void task_delay(volatile int count)
         ;
 }
 
-reg_t switch_task()
+reg_t switch_task_preemptive()
+{
+    _current = (_current + 1) % _top;
+    struct context *next = &tasks_ctx[_current];
+    return preemptive_switch(next);
+}
+
+void switch_task_collaborative()
 {
     _current = (_current + 1) % _top;
     struct context *next = &tasks_ctx[_current];
