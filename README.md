@@ -57,3 +57,5 @@
 [07 Hardware Timer](rvos/07_hwtimer/note/07_hwtimer.md)
 
 [08 MultiTasks](rvos/08_multitasks/note/08_multitasks.md)
+
+[09 Lock](rvos/09_lock/note/09_lock.md)
