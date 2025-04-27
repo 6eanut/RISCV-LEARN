@@ -7,8 +7,7 @@ spin_lock_asm:
 
 .global spin_unlock_asm
 spin_unlock_asm:
-    li t0, 0
-    sw t0, (a0)
+    amoswap.w.rl x0, x0, (a0)
     ret
 
 .end
