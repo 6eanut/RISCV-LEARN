@@ -4,7 +4,7 @@
 
 [手册原文](rvreader/RISC-V-Reader-Chinese-v1.pdf)
 
-[01 ISC-V](rvreader/01_RISC-V.md)
+[01 RISC-V](rvreader/01_RISC-V.md)
 
 [02 RV32I](rvreader/02_RV32I.md)
 
@@ -61,3 +61,5 @@
 [09 Lock](rvos/09_lock/note/09_lock.md)
 
 [10 Software Timer](rvos/10_swtimer/note/10_swtimer.md)
+
+[11 Syscall](rvos/11_syscall/note/11_syscall.md)
