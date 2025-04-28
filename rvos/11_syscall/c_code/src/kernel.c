@@ -1,0 +1,51 @@
+#include "../include/os.h"
+
+extern void uart_init();
+extern void page_init();
+// extern void page_test();
+extern void sched_init();
+extern void os_main();
+extern void run_os();
+extern void trap_init();
+extern void plic_init();
+extern void clint_init();
+extern void swtimer_init();
+
+void start_kernel(void)
+{
+    // mstatus will be set 0, when the power is on
+    reg_t mstatus = read_mstatus();
+    printf("mstatus = %lx\n", mstatus);
+
+    // uart
+    uart_init();
+    uart_puts("hello rvos\n");
+
+    // memory
+    page_init();
+    // page_test();
+
+    // trap
+    trap_init();
+
+    // plic
+    plic_init();
+
+    // CLINT: hardware timer interrupt and software interrupt
+    clint_init();
+
+    // Software Timer
+    swtimer_init();
+
+    // int mscratch = read_mscratch();
+    // printf("mscratch = %p\n", mscratch);
+    // context switch
+    sched_init();
+    os_main();
+    // uart_puts("run_os start\n");
+    run_os();
+    // uart_puts("run_os end\n");
+    while (1)
+    {
+    }
+}

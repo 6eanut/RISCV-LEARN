@@ -7,8 +7,15 @@ lock cs_lock = 0;
 void user_task0(void)
 {
     uart_puts("Task0 Created\n");
+    // printf("mepc = %lx, ra = %lx\n", mepc, ra);
+    // reg_t mepc = read_mepc();
+    // printf("mepc = %lx\n", mepc);
+    // reg_t mstatus = read_mstatus();
+    // printf("mstatus = %lx\n", mstatus);
     // int mtvec = read_mtvec();
     // printf("mtvec = %p\n", mtvec);
+    reg_t mstatus = syscall_get_mstatus();
+    printf("mstatus = %lx\n", mstatus);
     while (1)
     {
         // *(int *)0x00000000 = 1;
@@ -75,6 +82,24 @@ void user_task3(void)
         }
         spin_unlock(&cs_lock);
         uart_puts("Task3_With_Lock -- Exit The Critical Section, Release The Lock\n");
+        task_delay(DELAY);
+        // task_yield();
+    }
+}
+
+void user_task4(void)
+{
+    uart_puts("Task4 Created\n");
+    // reg_t mstatus = read_mstatus();
+    // printf("mstatus = %lx\n", mstatus);
+    // int mtvec = read_mtvec();
+    // printf("mtvec = %p\n", mtvec);
+    reg_t mhartid = syscall_get_mhartid();
+    printf("mhartid = %lx\n", mhartid);
+    while (1)
+    {
+        // *(int *)0x00000000 = 1;
+        uart_puts("Task4 Running\n");
         task_delay(DELAY);
         // task_yield();
     }
@@ -173,11 +198,13 @@ void os_main()
 {
     // for debug
     // uart_puts("os_main start\n");
-    // task_create(debug_user_task0);
-    // task_create(debug_user_task1);
+    task_create(debug_user_task0);
+    task_create(debug_user_task1);
     // task_create(user_task0);
+    // task_create(user_task4);
+    // task_create(user_task4);
     // task_create(user_task1);
     // task_create(user_task2);
     // task_create(user_task3);
-    task_create(swtimer_user_task0);
+    // task_create(swtimer_user_task0);
 }
