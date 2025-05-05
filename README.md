@@ -63,3 +63,11 @@
 [10 Software Timer](rvos/10_swtimer/note/10_swtimer.md)
 
 [11 Syscall](rvos/11_syscall/note/11_syscall.md)
+
+---
+
+**RVEMU**
+
+[01 Startup](rvemu/01_startup/note/01_startup.md)
+
+[02 ReadELF](rvemu/02_readelf/note/02_readelf.md)
