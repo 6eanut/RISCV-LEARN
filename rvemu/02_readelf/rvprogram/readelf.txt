@@ -1,0 +1,284 @@
+riscv64-linux-gnu-readelf -a rvprogram
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              DYN (Position-Independent Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+  Entry point address:               0x5b0
+  Start of program headers:          64 (bytes into file)
+  Start of section headers:          6704 (bytes into file)
+  Flags:                             0x5, RVC, double-float ABI
+  Size of this header:               64 (bytes)
+  Size of program headers:           56 (bytes)
+  Number of program headers:         10
+  Size of section headers:           64 (bytes)
+  Number of section headers:         28
+  Section header string table index: 27
+
+Section Headers:
+  [Nr] Name              Type             Address           Offset
+       Size              EntSize          Flags  Link  Info  Align
+  [ 0]                   NULL             0000000000000000  00000000
+       0000000000000000  0000000000000000           0     0     0
+  [ 1] .interp           PROGBITS         0000000000000270  00000270
+       0000000000000021  0000000000000000   A       0     0     1
+  [ 2] .note.gnu.bu[...] NOTE             0000000000000294  00000294
+       0000000000000024  0000000000000000   A       0     0     4
+  [ 3] .note.ABI-tag     NOTE             00000000000002b8  000002b8
+       0000000000000020  0000000000000000   A       0     0     4
+  [ 4] .gnu.hash         GNU_HASH         00000000000002d8  000002d8
+       0000000000000024  0000000000000000   A       5     0     8
+  [ 5] .dynsym           DYNSYM           0000000000000300  00000300
+       00000000000000c0  0000000000000018   A       6     2     8
+  [ 6] .dynstr           STRTAB           00000000000003c0  000003c0
+       000000000000007d  0000000000000000   A       0     0     1
+  [ 7] .gnu.version      VERSYM           000000000000043e  0000043e
+       0000000000000010  0000000000000002   A       5     0     2
+  [ 8] .gnu.version_r    VERNEED          0000000000000450  00000450
+       0000000000000030  0000000000000000   A       6     1     8
+  [ 9] .rela.dyn         RELA             0000000000000480  00000480
+       00000000000000c0  0000000000000018   A       5     0     8
+  [10] .rela.plt         RELA             0000000000000540  00000540
+       0000000000000030  0000000000000018  AI       5    20     8
+  [11] .plt              PROGBITS         0000000000000570  00000570
+       0000000000000040  0000000000000010  AX       0     0     16
+  [12] .text             PROGBITS         00000000000005b0  000005b0
+       000000000000010e  0000000000000000  AX       0     0     4
+  [13] .rodata           PROGBITS         00000000000006c0  000006c0
+       0000000000000015  0000000000000000   A       0     0     8
+  [14] .eh_frame_hdr     PROGBITS         00000000000006d8  000006d8
+       000000000000001c  0000000000000000   A       0     0     4
+  [15] .eh_frame         PROGBITS         00000000000006f8  000006f8
+       0000000000000054  0000000000000000   A       0     0     8
+  [16] .preinit_array    PREINIT_ARRAY    0000000000001db0  00000db0
+       0000000000000008  0000000000000008  WA       0     0     1
+  [17] .init_array       INIT_ARRAY       0000000000001db8  00000db8
+       0000000000000008  0000000000000008  WA       0     0     8
+  [18] .fini_array       FINI_ARRAY       0000000000001dc0  00000dc0
+       0000000000000008  0000000000000008  WA       0     0     8
+  [19] .dynamic          DYNAMIC          0000000000001dc8  00000dc8
+       00000000000001f0  0000000000000010  WA       6     0     8
+  [20] .got              PROGBITS         0000000000001fb8  00000fb8
+       0000000000000048  0000000000000008  WA       0     0     8
+  [21] .data             PROGBITS         0000000000002000  00001000
+       0000000000000008  0000000000000000  WA       0     0     8
+  [22] .bss              NOBITS           0000000000002008  00001008
+       0000000000000008  0000000000000000  WA       0     0     1
+  [23] .comment          PROGBITS         0000000000000000  00001008
+       000000000000002b  0000000000000001  MS       0     0     1
+  [24] .riscv.attributes RISCV_ATTRIBUTE  0000000000000000  00001033
+       0000000000000053  0000000000000000           0     0     1
+  [25] .symtab           SYMTAB           0000000000000000  00001088
+       0000000000000630  0000000000000018          26    47     8
+  [26] .strtab           STRTAB           0000000000000000  000016b8
+       0000000000000263  0000000000000000           0     0     1
+  [27] .shstrtab         STRTAB           0000000000000000  0000191b
+       000000000000010f  0000000000000000           0     0     1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
+                 0x0000000000000230 0x0000000000000230  R      0x8
+  INTERP         0x0000000000000270 0x0000000000000270 0x0000000000000270
+                 0x0000000000000021 0x0000000000000021  R      0x1
+      [Requesting program interpreter: /lib/ld-linux-riscv64-lp64d.so.1]
+  RISCV_ATTRIBUT 0x0000000000001033 0x0000000000000000 0x0000000000000000
+                 0x0000000000000053 0x0000000000000000  R      0x1
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x000000000000074c 0x000000000000074c  R E    0x1000
+  LOAD           0x0000000000000db0 0x0000000000001db0 0x0000000000001db0
+                 0x0000000000000258 0x0000000000000260  RW     0x1000
+  DYNAMIC        0x0000000000000dc8 0x0000000000001dc8 0x0000000000001dc8
+                 0x00000000000001f0 0x00000000000001f0  RW     0x8
+  NOTE           0x0000000000000294 0x0000000000000294 0x0000000000000294
+                 0x0000000000000044 0x0000000000000044  R      0x4
+  GNU_EH_FRAME   0x00000000000006d8 0x00000000000006d8 0x00000000000006d8
+                 0x000000000000001c 0x000000000000001c  R      0x4
+  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000000 0x0000000000000000  RW     0x10
+  GNU_RELRO      0x0000000000000db0 0x0000000000001db0 0x0000000000001db0
+                 0x0000000000000250 0x0000000000000250  R      0x1
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .riscv.attributes 
+   03     .interp .note.gnu.build-id .note.ABI-tag .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt .plt .text .rodata .eh_frame_hdr .eh_frame 
+   04     .preinit_array .init_array .fini_array .dynamic .got .data .bss 
+   05     .dynamic 
+   06     .note.gnu.build-id .note.ABI-tag 
+   07     .eh_frame_hdr 
+   08     
+   09     .preinit_array .init_array .fini_array .dynamic .got 
+
+Dynamic section at offset 0xdc8 contains 27 entries:
+  Tag        Type                         Name/Value
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
+ 0x0000000000000020 (PREINIT_ARRAY)      0x1db0
+ 0x0000000000000021 (PREINIT_ARRAYSZ)    8 (bytes)
+ 0x0000000000000019 (INIT_ARRAY)         0x1db8
+ 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)
+ 0x000000000000001a (FINI_ARRAY)         0x1dc0
+ 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)
+ 0x000000006ffffef5 (GNU_HASH)           0x2d8
+ 0x0000000000000005 (STRTAB)             0x3c0
+ 0x0000000000000006 (SYMTAB)             0x300
+ 0x000000000000000a (STRSZ)              125 (bytes)
+ 0x000000000000000b (SYMENT)             24 (bytes)
+ 0x0000000000000015 (DEBUG)              0x0
+ 0x0000000000000003 (PLTGOT)             0x1fb8
+ 0x0000000000000002 (PLTRELSZ)           48 (bytes)
+ 0x0000000000000014 (PLTREL)             RELA
+ 0x0000000000000017 (JMPREL)             0x540
+ 0x0000000000000007 (RELA)               0x480
+ 0x0000000000000008 (RELASZ)             240 (bytes)
+ 0x0000000000000009 (RELAENT)            24 (bytes)
+ 0x000000000000001e (FLAGS)              BIND_NOW
+ 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE
+ 0x000000006ffffffe (VERNEED)            0x450
+ 0x000000006fffffff (VERNEEDNUM)         1
+ 0x000000006ffffff0 (VERSYM)             0x43e
+ 0x000000006ffffff9 (RELACOUNT)          5
+ 0x0000000000000000 (NULL)               0x0
+
+Relocation section '.rela.dyn' at offset 0x480 contains 8 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000001db0  000000000003 R_RISCV_RELATIVE                     5d2
+000000001db8  000000000003 R_RISCV_RELATIVE                     688
+000000001dc0  000000000003 R_RISCV_RELATIVE                     648
+000000001fe8  000000000003 R_RISCV_RELATIVE                     694
+000000002000  000000000003 R_RISCV_RELATIVE                     2000
+000000001fe0  000300000002 R_RISCV_64        0000000000000000 _ITM_deregisterTM[...] + 0
+000000001ff0  000500000002 R_RISCV_64        0000000000000000 __cxa_finalize@GLIBC_2.27 + 0
+000000001ff8  000600000002 R_RISCV_64        0000000000000000 _ITM_registerTMCl[...] + 0
+
+Relocation section '.rela.plt' at offset 0x540 contains 2 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000001fc8  000200000005 R_RISCV_JUMP_SLOT 0000000000000000 __libc_start_main@GLIBC_2.34 + 0
+000000001fd0  000400000005 R_RISCV_JUMP_SLOT 0000000000000000 puts@GLIBC_2.27 + 0
+
+The decoding of unwind sections for machine type RISC-V is not currently supported.
+
+Symbol table '.dynsym' contains 8 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000000005b0     0 SECTION LOCAL  DEFAULT   12 .text
+     2: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND _[...]@GLIBC_2.34 (2)
+     3: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterT[...]
+     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.27 (3)
+     5: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND _[...]@GLIBC_2.27 (3)
+     6: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMC[...]
+     7: 0000000000000694    42 FUNC    GLOBAL DEFAULT   12 main
+
+Symbol table '.symtab' contains 66 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000270     0 SECTION LOCAL  DEFAULT    1 .interp
+     2: 0000000000000294     0 SECTION LOCAL  DEFAULT    2 .note.gnu.build-id
+     3: 00000000000002b8     0 SECTION LOCAL  DEFAULT    3 .note.ABI-tag
+     4: 00000000000002d8     0 SECTION LOCAL  DEFAULT    4 .gnu.hash
+     5: 0000000000000300     0 SECTION LOCAL  DEFAULT    5 .dynsym
+     6: 00000000000003c0     0 SECTION LOCAL  DEFAULT    6 .dynstr
+     7: 000000000000043e     0 SECTION LOCAL  DEFAULT    7 .gnu.version
+     8: 0000000000000450     0 SECTION LOCAL  DEFAULT    8 .gnu.version_r
+     9: 0000000000000480     0 SECTION LOCAL  DEFAULT    9 .rela.dyn
+    10: 0000000000000540     0 SECTION LOCAL  DEFAULT   10 .rela.plt
+    11: 0000000000000570     0 SECTION LOCAL  DEFAULT   11 .plt
+    12: 00000000000005b0     0 SECTION LOCAL  DEFAULT   12 .text
+    13: 00000000000006c0     0 SECTION LOCAL  DEFAULT   13 .rodata
+    14: 00000000000006d8     0 SECTION LOCAL  DEFAULT   14 .eh_frame_hdr
+    15: 00000000000006f8     0 SECTION LOCAL  DEFAULT   15 .eh_frame
+    16: 0000000000001db0     0 SECTION LOCAL  DEFAULT   16 .preinit_array
+    17: 0000000000001db8     0 SECTION LOCAL  DEFAULT   17 .init_array
+    18: 0000000000001dc0     0 SECTION LOCAL  DEFAULT   18 .fini_array
+    19: 0000000000001dc8     0 SECTION LOCAL  DEFAULT   19 .dynamic
+    20: 0000000000001fb8     0 SECTION LOCAL  DEFAULT   20 .got
+    21: 0000000000002000     0 SECTION LOCAL  DEFAULT   21 .data
+    22: 0000000000002008     0 SECTION LOCAL  DEFAULT   22 .bss
+    23: 0000000000000000     0 SECTION LOCAL  DEFAULT   23 .comment
+    24: 0000000000000000     0 SECTION LOCAL  DEFAULT   24 .riscv.attributes
+    25: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS Scrt1.o
+    26: 00000000000002b8    32 OBJECT  LOCAL  DEFAULT    3 __abi_tag
+    27: 00000000000005b0     0 NOTYPE  LOCAL  DEFAULT   12 $xrv64i2p1_m2p0_[...]
+    28: 00000000000005d2     0 NOTYPE  LOCAL  DEFAULT   12 load_gp
+    29: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    30: 00000000000005de     0 FUNC    LOCAL  DEFAULT   12 deregister_tm_clones
+    31: 00000000000005de     0 NOTYPE  LOCAL  DEFAULT   12 $xrv64i2p1_m2p0_[...]
+    32: 000000000000060e     0 FUNC    LOCAL  DEFAULT   12 register_tm_clones
+    33: 0000000000000648     0 FUNC    LOCAL  DEFAULT   12 __do_global_dtors_aux
+    34: 0000000000002008     1 OBJECT  LOCAL  DEFAULT   22 completed.0
+    35: 0000000000001dc0     0 OBJECT  LOCAL  DEFAULT   18 __do_global_dtor[...]
+    36: 0000000000000688     0 FUNC    LOCAL  DEFAULT   12 frame_dummy
+    37: 0000000000001db8     0 OBJECT  LOCAL  DEFAULT   17 __frame_dummy_in[...]
+    38: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS rvprogram.c
+    39: 0000000000000694     0 NOTYPE  LOCAL  DEFAULT   12 $xrv64i2p1_m2p0_[...]
+    40: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS crtstuff.c
+    41: 0000000000000748     0 OBJECT  LOCAL  DEFAULT   15 __FRAME_END__
+    42: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS 
+    43: 0000000000000570     0 OBJECT  LOCAL  DEFAULT  ABS _PROCEDURE_LINKA[...]
+    44: 0000000000001dc8     0 OBJECT  LOCAL  DEFAULT  ABS _DYNAMIC
+    45: 00000000000006d8     0 NOTYPE  LOCAL  DEFAULT   14 __GNU_EH_FRAME_HDR
+    46: 0000000000001fd8     0 OBJECT  LOCAL  DEFAULT  ABS _GLOBAL_OFFSET_TABLE_
+    47: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __libc_start_mai[...]
+    48: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterT[...]
+    49: 0000000000002000     0 NOTYPE  WEAK   DEFAULT   21 data_start
+    50: 0000000000002010     0 NOTYPE  GLOBAL DEFAULT   22 __BSS_END__
+    51: 0000000000002008     0 NOTYPE  GLOBAL DEFAULT   21 _edata
+    52: 0000000000002008     0 NOTYPE  GLOBAL DEFAULT   21 __SDATA_BEGIN__
+    53: 0000000000002000     0 NOTYPE  GLOBAL DEFAULT   21 __DATA_BEGIN__
+    54: 0000000000002000     0 NOTYPE  GLOBAL DEFAULT   21 __data_start
+    55: 0000000000002000     0 OBJECT  GLOBAL HIDDEN    21 __dso_handle
+    56: 00000000000006c0     4 OBJECT  GLOBAL DEFAULT   13 _IO_stdin_used
+    57: 0000000000002010     0 NOTYPE  GLOBAL DEFAULT   22 _end
+    58: 00000000000005b0    34 FUNC    GLOBAL DEFAULT   12 _start
+    59: 0000000000002800     0 NOTYPE  GLOBAL DEFAULT  ABS __global_pointer$
+    60: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND puts@GLIBC_2.27
+    61: 0000000000002008     0 NOTYPE  GLOBAL DEFAULT   22 __bss_start
+    62: 0000000000000694    42 FUNC    GLOBAL DEFAULT   12 main
+    63: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND __cxa_finalize@G[...]
+    64: 0000000000002008     0 OBJECT  GLOBAL HIDDEN    21 __TMC_END__
+    65: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMC[...]
+
+Histogram for `.gnu.hash' bucket list length (total of 2 buckets):
+ Length  Number     % of total  Coverage
+      0  1          ( 50.0%)
+      1  1          ( 50.0%)    100.0%
+
+Version symbols section '.gnu.version' contains 8 entries:
+ Addr: 0x000000000000043e  Offset: 0x0000043e  Link: 5 (.dynsym)
+  000:   0 (*local*)       0 (*local*)       2 (GLIBC_2.34)    1 (*global*)   
+  004:   3 (GLIBC_2.27)    3 (GLIBC_2.27)    1 (*global*)      1 (*global*)   
+
+Version needs section '.gnu.version_r' contains 1 entry:
+ Addr: 0x0000000000000450  Offset: 0x00000450  Link: 6 (.dynstr)
+  000000: Version: 1  File: libc.so.6  Cnt: 2
+  0x0010:   Name: GLIBC_2.27  Flags: none  Version: 3
+  0x0020:   Name: GLIBC_2.34  Flags: none  Version: 2
+
+Displaying notes found in: .note.gnu.build-id
+  Owner                Data size 	Description
+  GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID bitstring)
+    Build ID: d4870ee04d9e8e57d64984565cda2fdbde86edd2
+
+Displaying notes found in: .note.ABI-tag
+  Owner                Data size 	Description
+  GNU                  0x00000010	NT_GNU_ABI_TAG (ABI version tag)
+    OS: Linux, ABI: 4.15.0
+Attribute Section: riscv
+File Attributes
+  Tag_RISCV_stack_align: 16-bytes
+  Tag_RISCV_arch: "rv64i2p1_m2p0_a2p1_f2p2_d2p2_c2p0_zicsr2p0_zifencei2p0_zmmul1p0"
