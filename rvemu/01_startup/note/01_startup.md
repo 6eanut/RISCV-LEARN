@@ -2,7 +2,7 @@
 
 在X86的Ubuntu上开发一个RISC-V模拟器，即该程序可以让一个在RISC-V架构上运行的程序在X86架构上运行。
 
-## 0 环境准备
+## 1 环境准备
 
 ```shell
 sudo apt install -y clang qemu-user gcc-riscv64-unknown-elf
@@ -10,7 +10,7 @@ sudo apt install -y clang qemu-user gcc-riscv64-unknown-elf
 
 因为本实验是用riscv64-linux-gnu-gcc来编译Linux用户态可执行程序，故而需要用qemu-user来模拟运行。
 
-## 1 项目架构
+## 2 项目架构
 
 目录结构如下：
 

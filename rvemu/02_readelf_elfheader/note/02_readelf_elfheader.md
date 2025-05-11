@@ -1,16 +1,16 @@
 # ReadELF : ELF Header
 
-## 0 思路
+## 1 思路
 
 rvemu模拟器就是把一个RISC-V的程序rvprogram作为参数传递给rvemu这个X86的可执行程序，然后在rvemu里面去读rvprogram这个程序的二进制信息，根据ELF文件的规范提取出信息，而后做后续处理，以达到模拟RISC-V指令执行的效果。
 
 故而第一步是需要知道ELF文件的格式。
 
-## 1 ELF
+## 2 ELF
 
 在rvos中，使用riscv64-unknown-elf-gcc来进行编译，其用于开发操作系统等裸机程序；传给rvemu的程序rvprogram是一个linux用户空间的可执行程序，故而用riscv64-linux-gnu-gcc来编译，然后可以借助riscv64-linux-gnu-readelf来查看rvprogram的内容，使用qemu-riscv64来模拟运行rvprogram。
 
-### 1-1 rvprogram
+### 2-1 rvprogram
 
 先写一个简单的C语言程序，然后用riscv64-linux-gnu-gcc进行编译得到rvprogram可执行程序，然后通过riscv64-linux-gnu-readelf来获得ELF Header的内容。
 
@@ -41,7 +41,7 @@ ELF Header:
 
 以上就是通过readelf工具得到的ELF Header信息，更多细节见rvprogram目录下的代码。
 
-### 1-2 rvemu
+### 2-2 rvemu
 
 rvprogram可执行程序的路径是rvemu的参数，通过该路径可以读取到该可执行程序的内容。
 
