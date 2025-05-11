@@ -1,6 +1,16 @@
 #include "../include/rvemu.h"
 
-void print_ElfHeader(Elf64_Ehdr_t *elf64_ehdr_ptr)
+void read_elf_phdr(Elf64_Ehdr_t *elf64_ehdr_ptr, Elf64_Phdr_t *elf64_phdr_ptr, int index, FILE *file)
+{
+    if (fseek(file, elf64_ehdr_ptr->e_phoff + elf64_ehdr_ptr->e_phentsize * index, SEEK_SET) != 0)
+        MYEXIT("fseek fail");
+
+    if (fread(elf64_phdr_ptr, 1, elf64_ehdr_ptr->e_phentsize, file) != elf64_ehdr_ptr->e_phentsize)
+        MYEXIT("fread fail");
+}
+
+// for debug
+void debug_print_ElfHeader(Elf64_Ehdr_t *elf64_ehdr_ptr)
 {
     printf("***Elf Header***\n");
     Elf64_Ehdr_t elf64_ehdr = *elf64_ehdr_ptr;
@@ -36,7 +46,7 @@ void print_ElfHeader(Elf64_Ehdr_t *elf64_ehdr_ptr)
            elf64_ehdr.e_shstrndx);
 }
 
-void print_ElfProgramHeaderTableEnrty(Elf64_Phdr_t *elf64_phdr_ptr)
+void debug_print_ElfProgramHeaderTableEnrty(Elf64_Phdr_t *elf64_phdr_ptr)
 {
     printf("***Elf Program Header Table Entry***\n");
     Elf64_Phdr_t elf64_phdr = *elf64_phdr_ptr;
@@ -59,15 +69,6 @@ void print_ElfProgramHeaderTableEnrty(Elf64_Phdr_t *elf64_phdr_ptr)
         elf64_phdr.p_align);
 }
 
-void readElf_PHTE(Elf64_Ehdr_t *elf64_ehdr_ptr, Elf64_Phdr_t *elf64_phdr_ptr, int index, FILE *file)
-{
-    if (fseek(file, elf64_ehdr_ptr->e_phoff + elf64_ehdr_ptr->e_phentsize * index, SEEK_SET) != 0)
-        MYEXIT("fseek fail");
-
-    if (fread(elf64_phdr_ptr, 1, elf64_ehdr_ptr->e_phentsize, file) != elf64_ehdr_ptr->e_phentsize)
-        MYEXIT("fread fail");
-}
-
 void debug_readElf(char *program)
 {
     int fd = open(program, O_RDONLY);
@@ -78,49 +79,17 @@ void debug_readElf(char *program)
     // for Elf Header
     uint8_t buffer_ElfHeader[sizeof(Elf64_Ehdr_t)];
     if (fread(buffer_ElfHeader, 1, sizeof(Elf64_Ehdr_t), file) != sizeof(Elf64_Ehdr_t))
-    {
-        printf("fread fail\n");
-    }
-    print_ElfHeader((Elf64_Ehdr_t *)buffer_ElfHeader);
+        MYEXIT("fread fail");
+    debug_print_ElfHeader((Elf64_Ehdr_t *)buffer_ElfHeader);
     Elf64_Ehdr_t elf64_ehdr = *(Elf64_Ehdr_t *)buffer_ElfHeader;
 
     // for Program Header Table
     uint8_t buffer_ProgramHeaderTableEntry[elf64_ehdr.e_phentsize];
     for (int i = 0; i < elf64_ehdr.e_phnum; i++)
     {
-        readElf_PHTE((Elf64_Ehdr_t *)buffer_ElfHeader, (Elf64_Phdr_t *)buffer_ProgramHeaderTableEntry, i, file);
+        read_elf_phdr((Elf64_Ehdr_t *)buffer_ElfHeader, (Elf64_Phdr_t *)buffer_ProgramHeaderTableEntry, i, file);
         Elf64_Phdr_t elf64_phdr = *(Elf64_Phdr_t *)buffer_ProgramHeaderTableEntry;
         if (elf64_phdr.p_type == PT_LOAD)
-        {
-            print_ElfProgramHeaderTableEnrty((Elf64_Phdr_t *)buffer_ProgramHeaderTableEntry);
-            if (elf64_phdr.p_flags == PF_X + PF_R)
-            {
-                printf("Instructions : \n");
-                Elf64_Addr inst_offset = (elf64_ehdr.e_entry - elf64_phdr.p_vaddr) + elf64_phdr.p_offset;
-                uint32_t inst_size = elf64_phdr.p_filesz + elf64_phdr.p_offset - inst_offset;
-                fseek(file, inst_offset, SEEK_SET);
-                uint8_t buffer_inst[inst_size];
-                fread((void *)buffer_inst, 1, inst_size, file);
-                for (int i = 0; i < inst_size; i += 8)
-                {
-                    uint64_t inst = *(uint64_t *)(buffer_inst + i);
-                    printf("%lx\n", inst);
-                }
-            }
-            else if (elf64_phdr.p_flags == PF_R + PF_W)
-            {
-                printf("Data : \n");
-                Elf64_Addr data_offset = elf64_phdr.p_offset;
-                uint32_t data_size = elf64_phdr.p_filesz;
-                fseek(file, data_offset, SEEK_SET);
-                uint8_t buffer_data[data_size];
-                fread((void *)buffer_data, 1, data_size, file);
-                for (int i = 0; i < data_size; i += 8)
-                {
-                    uint64_t data = *(uint64_t *)(buffer_data + i);
-                    printf("%lx\n", data);
-                }
-            }
-        }
+            debug_print_ElfProgramHeaderTableEnrty((Elf64_Phdr_t *)buffer_ProgramHeaderTableEntry);
     }
 }

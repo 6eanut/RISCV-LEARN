@@ -1,8 +1,6 @@
 #ifndef ELF_H
 #define ELF_H
 
-#include <stdint.h>
-
 // ELF-64 Object File Format : https://uclibc.org/docs/elf-64-gen.pdf
 typedef uint64_t Elf64_Addr;  // Unsigned Program Address
 typedef uint64_t Elf64_Off;   // Unsigned FIle Offset
@@ -15,8 +13,6 @@ typedef uint64_t Elf64_Xword; // Unsigned Long Integer
 #define PF_X 1 // Executable
 #define PF_W 2 // Write
 #define PF_R 4 // Read
-
-#define QUADRANT(inst) ((inst) & 0x3)
 
 // Elf Header
 typedef struct
@@ -52,6 +48,6 @@ typedef struct
     Elf64_Xword p_align;
 } Elf64_Phdr_t;
 
-void debug_readElf(char *);
+void read_elf_phdr(Elf64_Ehdr_t *, Elf64_Phdr_t *, int, FILE *);
 
 #endif

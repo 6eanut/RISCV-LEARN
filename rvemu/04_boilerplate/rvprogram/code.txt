@@ -127,21 +127,20 @@ Disassembly of section .text:
  660:	fcf42e23          	sw	a5,-36(s0)
  664:	4785                	li	a5,1
  666:	fef42023          	sw	a5,-32(s0)
- 66a:	6785                	lui	a5,0x1
- 66c:	8ae78793          	addi	a5,a5,-1874 # 8ae <__FRAME_END__+0x1a2>
- 670:	fef42223          	sw	a5,-28(s0)
- 674:	fe042783          	lw	a5,-32(s0)
- 678:	873e                	mv	a4,a5
- 67a:	fe442783          	lw	a5,-28(s0)
- 67e:	9fb9                	addw	a5,a5,a4
- 680:	fef42423          	sw	a5,-24(s0)
- 684:	fe842783          	lw	a5,-24(s0)
- 688:	873e                	mv	a4,a5
- 68a:	fe042783          	lw	a5,-32(s0)
- 68e:	9fb9                	addw	a5,a5,a4
- 690:	fef42623          	sw	a5,-20(s0)
- 694:	4781                	li	a5,0
- 696:	853e                	mv	a0,a5
- 698:	7422                	ld	s0,40(sp)
- 69a:	6145                	addi	sp,sp,48
- 69c:	8082                	ret
+ 66a:	4789                	li	a5,2
+ 66c:	fef42223          	sw	a5,-28(s0)
+ 670:	fe042783          	lw	a5,-32(s0)
+ 674:	873e                	mv	a4,a5
+ 676:	fe442783          	lw	a5,-28(s0)
+ 67a:	9fb9                	addw	a5,a5,a4
+ 67c:	fef42423          	sw	a5,-24(s0)
+ 680:	fe842783          	lw	a5,-24(s0)
+ 684:	873e                	mv	a4,a5
+ 686:	fe042783          	lw	a5,-32(s0)
+ 68a:	9fb9                	addw	a5,a5,a4
+ 68c:	fef42623          	sw	a5,-20(s0)
+ 690:	4781                	li	a5,0
+ 692:	853e                	mv	a0,a5
+ 694:	7422                	ld	s0,40(sp)
+ 696:	6145                	addi	sp,sp,48
+ 698:	8082                	ret
