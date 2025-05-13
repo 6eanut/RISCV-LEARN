@@ -75,3 +75,5 @@
 [03 ReadELF : Program Header Table](rvemu/03_readelf_programheadertable/note/03_readelf_programheadertable.md)
 
 [04 Boilerplate](rvemu/04_boilerplate/note/04_boilerplate.md)
+
+[05 Decoder](rvemu/05_decoder/note/05_decoder.md)
