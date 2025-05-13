@@ -1,0 +1,160 @@
+./rvemu ../rvprogram/rvprogram
+hello rvemu
+addr        :   88800000000
+length      :   1000
+prot        :   5
+offset      :   0
+host_alloc  :   88800000000
+addr        :   88800001000
+length      :   2000
+prot        :   3
+offset      :   0
+host_alloc  :   88800001000
+entry   : 88800000570
+alloc   : 88800001000
+base    : 88800001000
+raw_inst    :   22000ef
+pc      :   88800000570
+type    :   2
+rs1     :   0
+rs2     :   0
+rd      :   1
+imm     :   22
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   251787aa
+pc      :   88800000574
+type    :   27
+rs1     :   0
+rs2     :   a
+rd      :   f
+imm     :   22
+rvc     :   1
+csr     :   0
+goon    :   1
+*****************
+raw_inst    :   2517
+pc      :   88800000576
+type    :   1
+rs1     :   0
+rs2     :   0
+rd      :   a
+imm     :   2000
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   a7253503
+pc      :   8880000057a
+type    :   48
+rs1     :   a
+rs2     :   0
+rd      :   a
+imm     :   fffffa72
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   306582
+pc      :   8880000057e
+type    :   102
+rs1     :   2
+rs2     :   0
+rd      :   b
+imm     :   0
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   ff017113
+pc      :   88800000582
+type    :   23
+rs1     :   2
+rs2     :   0
+rd      :   2
+imm     :   fffffff0
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   47014681
+pc      :   88800000586
+type    :   18
+rs1     :   0
+rs2     :   0
+rd      :   d
+imm     :   0
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   f0ef880a
+pc      :   8880000058a
+type    :   27
+rs1     :   0
+rs2     :   2
+rd      :   10
+imm     :   0
+rvc     :   1
+csr     :   0
+goon    :   1
+*****************
+raw_inst    :   fd5ff0ef
+pc      :   8880000058c
+type    :   2
+rs1     :   0
+rs2     :   0
+rd      :   1
+imm     :   ffffffd4
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   21979002
+pc      :   88800000590
+type    :   40
+rs1     :   0
+rs2     :   0
+rd      :   1
+imm     :   ffffffd4
+rvc     :   1
+csr     :   0
+goon    :   1
+*****************
+raw_inst    :   2197
+pc      :   88800000592
+type    :   1
+rs1     :   0
+rs2     :   0
+rd      :   3
+imm     :   2000
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   26e18193
+pc      :   88800000596
+type    :   18
+rs1     :   3
+rs2     :   0
+rd      :   3
+imm     :   26e
+rvc     :   0
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   8082
+pc      :   8880000059a
+type    :   3
+rs1     :   1
+rs2     :   0
+rd      :   0
+imm     :   26e
+rvc     :   1
+csr     :   0
+goon    :   0
+*****************
+raw_inst    :   11410000
+Illegal instruction
