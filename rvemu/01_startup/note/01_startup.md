@@ -5,7 +5,7 @@
 ## 1 环境准备
 
 ```shell
-sudo apt install -y clang qemu-user gcc-riscv64-unknown-elf
+sudo apt install -y clang qemu-user gcc-riscv64-linux-gnu
 ```
 
 因为本实验是用riscv64-linux-gnu-gcc来编译Linux用户态可执行程序，故而需要用qemu-user来模拟运行。

@@ -185,7 +185,7 @@ typedef struct
     int32_t imm;
     bool rvc;
     enum inst_type_t type;
-    bool goon;
+    bool stop;
     uint16_t csr;
     uint8_t rs3;
 } inst_t;
@@ -193,7 +193,7 @@ typedef struct
 #define QUADRANT(raw_inst) (((raw_inst) >> 0) & 0x3)
 
 // RV Standard
-#define OPCODE(raw_inst) (((raw_inst) >> 2) & 0x1f)  // 6:0
+#define OPCODE(raw_inst) (((raw_inst) >> 2) & 0x1f)  // 6:2
 #define RD(raw_inst) (((raw_inst) >> 7) & 0x1f)      // 11:7
 #define FUNCT3(raw_inst) (((raw_inst) >> 12) & 0x7)  // 14:12
 #define RS1(raw_inst) (((raw_inst) >> 15) & 0x1f)    // 19:15

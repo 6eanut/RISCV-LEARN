@@ -106,6 +106,7 @@ inst_t inst_ciwtype_read(uint16_t raw_inst)
     return (inst_t){
         .rd = CRDP_LOW(raw_inst) + 8,
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -118,6 +119,7 @@ inst_t inst_cltype_read1(uint16_t raw_inst)
         .rs1 = CRS1P(raw_inst) + 8,
         .rd = CRDP_LOW(raw_inst) + 8,
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -131,6 +133,7 @@ inst_t inst_cltype_read2(uint16_t raw_inst)
         .rs1 = CRS1P(raw_inst) + 8,
         .rd = CRDP_LOW(raw_inst) + 8,
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -143,6 +146,7 @@ inst_t inst_cstype_read1(uint16_t raw_inst)
         .rs1 = CRS1P(raw_inst) + 8,
         .rs2 = CRS2P(raw_inst) + 8,
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -156,6 +160,7 @@ inst_t inst_cstype_read2(uint16_t raw_inst)
         .rs1 = CRS1P(raw_inst) + 8,
         .rs2 = CRS2P(raw_inst) + 8,
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -167,6 +172,7 @@ inst_t inst_cimm540_read(uint16_t raw_inst)
     imm = (imm << 26) >> 26;
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -181,6 +187,7 @@ inst_t inst_cimm946875_read(uint16_t raw_inst)
     imm = (imm << 22) >> 22;
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -192,6 +199,7 @@ inst_t inst_cimm171612_read(uint16_t raw_inst)
     imm = (imm << 14) >> 14;
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -209,6 +217,7 @@ inst_t inst_cimm114981067315_read(uint16_t raw_inst)
     imm = (imm << 20) >> 20;
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -223,6 +232,7 @@ inst_t inst_cimm84376215_read(uint16_t raw_inst)
     imm = (imm << 23) >> 23;
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -234,6 +244,7 @@ inst_t inst_cimm54386_read(uint16_t raw_inst)
     int32_t imm = (imm5 << 5) + (imm4_3 << 3) + (imm8_6 << 6);
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -245,6 +256,7 @@ inst_t inst_cimm54276_read(uint16_t raw_inst)
     int32_t imm = (imm5 << 5) + (imm4_2 << 2) + (imm7_6 << 6);
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -255,6 +267,7 @@ inst_t inst_cimm5386_read(uint16_t raw_inst)
     int32_t imm = (imm5_3 << 3) + (imm8_6 << 6);
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -265,6 +278,7 @@ inst_t inst_cimm5276_read(uint16_t raw_inst)
     int32_t imm = (imm5_2 << 2) + (imm7_6 << 6);
     return (inst_t){
         .imm = imm,
+        .rvc = true,
     };
 }
 
@@ -462,7 +476,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             *inst = inst_cimm114981067315_read(raw_inst);
             inst->type = inst_jal;
             inst->rd = zero;
-            inst->goon = false;
+            inst->stop = true;
             return;
         }
         case 0x6: // c.beqz
@@ -520,7 +534,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             *inst = inst_cimm54386_read(raw_inst);
             inst->rd = CRD(raw_inst);
             inst->rs1 = sp;
-            inst->type = inst_fld;
+            inst->type = inst_ld;
             return;
         }
         case 0x4:
@@ -543,7 +557,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
                     inst->rs2 = rs2;
                     inst->rd = ra;
                     inst->type = inst_jalr;
-                    inst->goon = false;
+                    inst->stop = true;
                     return;
                 }
                 if (rs1 != 0 && rs2 != 0) // c.add
@@ -566,7 +580,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
                     inst->rs2 = rs2;
                     inst->rd = zero;
                     inst->type = inst_jalr;
-                    inst->goon = false;
+                    inst->stop = true;
                     return;
                 }
                 if (rs1 != 0 && rs2 != 0) // c.mv
@@ -629,7 +643,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         {
             *inst = inst_jtype_read(raw_inst);
             inst->type = inst_jal;
-            inst->goon = false;
+            inst->stop = true;
             return;
         }
         case 0x19: // j-type
@@ -641,7 +655,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             case 0x0: // jalr
             {
                 inst->type = inst_jalr;
-                inst->goon = false;
+                inst->stop = true;
                 return;
             }
             default:
@@ -1039,7 +1053,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
                 if ((raw_inst & 0x100000) == 0)
                 {
                     inst->type = inst_ecall;
-                    inst->goon = false;
+                    inst->stop = true;
                 }
                 else
                 {

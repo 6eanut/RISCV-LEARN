@@ -18,8 +18,7 @@ int main(int argc, char *argv[])
     printf("entry   : %lx\n", machine.mmu.entry);
     printf("alloc   : %lx\n", machine.mmu.alloc);
     printf("base    : %lx\n", machine.mmu.base);
-
-    
+    printf("*****************\n");
 
     // framework
     while (true)
