@@ -403,7 +403,6 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             case 0x0: // c.srli
             {
                 *inst = inst_cimm540_read(raw_inst);
-                assert(inst->rd != 0);
                 inst->type = inst_srli;
                 inst->rs1 = CRS1P(raw_inst) + 8;
                 inst->rd = CRDP_HIGH(raw_inst) + 8;
@@ -412,7 +411,6 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             case 0x1: // c.srai
             {
                 *inst = inst_cimm540_read(raw_inst);
-                assert(inst->rd != 0);
                 inst->type = inst_srai;
                 inst->rs1 = CRS1P(raw_inst) + 8;
                 inst->rd = CRDP_HIGH(raw_inst) + 8;
@@ -815,8 +813,8 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             }
             case 0x1:
             {
-                uint32_t funct7 = FUNCT7(raw_inst);
-                switch (funct7)
+                uint32_t funct6 = FUNCT6(raw_inst);
+                switch (funct6)
                 {
                 case 0x0: // slli
                 {
@@ -829,15 +827,15 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             }
             case 0x5:
             {
-                uint32_t funct7 = FUNCT7(raw_inst);
-                switch (funct7)
+                uint32_t funct6 = FUNCT6(raw_inst);
+                switch (funct6)
                 {
                 case 0x0: // srli
                 {
                     inst->type = inst_srli;
                     return;
                 }
-                case 0x20: // srai
+                case 0x10: // srai
                 {
                     inst->type = inst_srai;
                     return;

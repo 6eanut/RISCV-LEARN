@@ -202,6 +202,7 @@ typedef struct
 #define CSR(raw_inst) (((raw_inst) >> 20) & 0xfff)   // 31:20
 #define RS3(raw_inst) (((raw_inst) >> 27) & 0x1f)    // 31:27
 #define FUNCT2(raw_inst) (((raw_inst) >> 25) & 0x10) // 26:25
+#define FUNCT6(raw_inst) (((raw_inst) >> 26) & 0x3f) // 31:26
 
 // RVC
 #define CRS2(raw_inst) (((raw_inst) >> 2) & 0x1f)         // 6:2

@@ -155,6 +155,7 @@ func_t *funcs[] = {
 
 void interp_exec_bb(state_t *state)
 {
+    // state->pc=0x8880000059e;
     while (true)
     {
         inst_t inst = {0};
