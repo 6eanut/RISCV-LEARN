@@ -77,3 +77,5 @@
 [04 Boilerplate](rvemu/04_boilerplate/note/04_boilerplate.md)
 
 [05 Decoder](rvemu/05_decoder/note/05_decoder.md)
+
+[06 Interpreter](rvemu/06_interpreter/note/06_interpreter.md)
