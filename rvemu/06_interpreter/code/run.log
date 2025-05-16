@@ -1,0 +1,122 @@
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/elf.o src/elf.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/inst.o src/inst.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/interp.o src/interp.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/machine.o src/machine.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/mmu.o src/mmu.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -c -o obj/rvemu.o src/rvemu.c
+clang -O3 -Wall -Werror -Wimplicit-fallthrough -lm -o rvemu obj/elf.o obj/inst.o obj/interp.o obj/machine.o obj/mmu.o obj/rvemu.o
+./rvemu ../rvprogram/rvprogram
+hello rvemu
+addr        :   88800000000
+length      :   1000
+prot        :   5
+offset      :   0
+host_alloc  :   88800000000
+addr        :   88800001000
+length      :   2000
+prot        :   3
+offset      :   0
+host_alloc  :   88800001000
+entry   : 888000005b0
+alloc   : 88800001000
+base    : 88800001000
+*****************
+raw_inst        :   22000ef
+pc          :   888000005b0
+type        :   2
+rs1         :   0
+rs2         :   0
+rd          :   1
+imm         :   22
+rvc         :   0
+csr         :   0
+stop        :   1
+gp_reg : 
+x0  = 0, x1  = 0, x2  = 0, x3  = 0, x4  = 0, x5  = 0, x6  = 0, x7  = 0
+x8  = 0, x9  = 0, x10 = 0, x11 = 0, x12 = 0, x13 = 0, x14 = 0, x15 = 0
+x16 = 0, x17 = 0, x18 = 0, x19 = 0, x20 = 0, x21 = 0, x22 = 0, x23 = 0
+x24 = 0, x25 = 0, x26 = 0, x27 = 0, x28 = 0, x29 = 0, x30 = 0, x31 = 0
+fp_reg : 
+f0  = 0, f1  = 0, f2  = 0, f3  = 0, f4  = 0, f5  = 0, f6  = 0, f7  = 0
+f8  = 0, f9  = 0, f10 = 0, f11 = 0, f12 = 0, f13 = 0, f14 = 0, f15 = 0
+f16 = 0, f17 = 0, f18 = 0, f19 = 0, f20 = 0, f21 = 0, f22 = 0, f23 = 0
+f24 = 0, f25 = 0, f26 = 0, f27 = 0, f28 = 0, f29 = 0, f30 = 0, f31 = 0
+raw_inst        :   2197
+pc          :   888000005d2
+type        :   1
+rs1         :   0
+rs2         :   0
+rd          :   3
+imm         :   2000
+rvc         :   0
+csr         :   0
+stop        :   0
+gp_reg : 
+x0  = 0, x1  = 888000005b4, x2  = 0, x3  = 0, x4  = 0, x5  = 0, x6  = 0, x7  = 0
+x8  = 0, x9  = 0, x10 = 0, x11 = 0, x12 = 0, x13 = 0, x14 = 0, x15 = 0
+x16 = 0, x17 = 0, x18 = 0, x19 = 0, x20 = 0, x21 = 0, x22 = 0, x23 = 0
+x24 = 0, x25 = 0, x26 = 0, x27 = 0, x28 = 0, x29 = 0, x30 = 0, x31 = 0
+fp_reg : 
+f0  = 0, f1  = 0, f2  = 0, f3  = 0, f4  = 0, f5  = 0, f6  = 0, f7  = 0
+f8  = 0, f9  = 0, f10 = 0, f11 = 0, f12 = 0, f13 = 0, f14 = 0, f15 = 0
+f16 = 0, f17 = 0, f18 = 0, f19 = 0, f20 = 0, f21 = 0, f22 = 0, f23 = 0
+f24 = 0, f25 = 0, f26 = 0, f27 = 0, f28 = 0, f29 = 0, f30 = 0, f31 = 0
+*****************
+raw_inst        :   22e18193
+pc          :   888000005d6
+type        :   18
+rs1         :   3
+rs2         :   0
+rd          :   3
+imm         :   22e
+rvc         :   0
+csr         :   0
+stop        :   0
+gp_reg : 
+x0  = 0, x1  = 888000005b4, x2  = 0, x3  = 888000025d2, x4  = 0, x5  = 0, x6  = 0, x7  = 0
+x8  = 0, x9  = 0, x10 = 0, x11 = 0, x12 = 0, x13 = 0, x14 = 0, x15 = 0
+x16 = 0, x17 = 0, x18 = 0, x19 = 0, x20 = 0, x21 = 0, x22 = 0, x23 = 0
+x24 = 0, x25 = 0, x26 = 0, x27 = 0, x28 = 0, x29 = 0, x30 = 0, x31 = 0
+fp_reg : 
+f0  = 0, f1  = 0, f2  = 0, f3  = 0, f4  = 0, f5  = 0, f6  = 0, f7  = 0
+f8  = 0, f9  = 0, f10 = 0, f11 = 0, f12 = 0, f13 = 0, f14 = 0, f15 = 0
+f16 = 0, f17 = 0, f18 = 0, f19 = 0, f20 = 0, f21 = 0, f22 = 0, f23 = 0
+f24 = 0, f25 = 0, f26 = 0, f27 = 0, f28 = 0, f29 = 0, f30 = 0, f31 = 0
+*****************
+raw_inst        :   8082
+pc          :   888000005da
+type        :   3
+rs1         :   1
+rs2         :   0
+rd          :   0
+imm         :   0
+rvc         :   1
+csr         :   0
+stop        :   1
+gp_reg : 
+x0  = 0, x1  = 888000005b4, x2  = 0, x3  = 88800002800, x4  = 0, x5  = 0, x6  = 0, x7  = 0
+x8  = 0, x9  = 0, x10 = 0, x11 = 0, x12 = 0, x13 = 0, x14 = 0, x15 = 0
+x16 = 0, x17 = 0, x18 = 0, x19 = 0, x20 = 0, x21 = 0, x22 = 0, x23 = 0
+x24 = 0, x25 = 0, x26 = 0, x27 = 0, x28 = 0, x29 = 0, x30 = 0, x31 = 0
+fp_reg : 
+f0  = 0, f1  = 0, f2  = 0, f3  = 0, f4  = 0, f5  = 0, f6  = 0, f7  = 0
+f8  = 0, f9  = 0, f10 = 0, f11 = 0, f12 = 0, f13 = 0, f14 = 0, f15 = 0
+f16 = 0, f17 = 0, f18 = 0, f19 = 0, f20 = 0, f21 = 0, f22 = 0, f23 = 0
+f24 = 0, f25 = 0, f26 = 0, f27 = 0, f28 = 0, f29 = 0, f30 = 0, f31 = 0
+raw_inst        :   251787aa
+pc          :   888000005b4
+type        :   27
+rs1         :   0
+rs2         :   a
+rd          :   f
+imm         :   0
+rvc         :   1
+csr         :   0
+stop        :   0
+gp_reg : 
+x0  = 0, x1  = 888000005b4, x2  = 0, x3  = 88800002800, x4  = 0, x5  = 0, x6  = 0, x7  = 0
+x8  = 0, x9  = 0, x10 = 0, x11 = 0, x12 = 0, x13 = 0, x14 = 0, x15 = 0
+x16 = 0, x17 = 0, x18 = 0, x19 = 0, x20 = 0, x21 = 0, x22 = 0, x23 = 0
+x24 = 0, x25 = 0, x26 = 0, x27 = 0, x28 = 0, x29 = 0, x30 = 0, x31 = 0
+fp_reg : 
+f0  = 0,
