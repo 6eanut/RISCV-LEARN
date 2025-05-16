@@ -333,12 +333,16 @@ void interp_exec_bb(state_t *state)
     while (true)
     {
         inst_t inst = {0};
+        printf("fetch inst from pc : %lx\n", state->pc);
         uint32_t raw_inst = *(uint32_t *)state->pc;
-        printf("raw_inst        :   %x\n", raw_inst);
+        printf("fetch inst success, raw_inst : %x\n", raw_inst);
         inst_decode(&inst, raw_inst);
         debug_inst(state, &inst);
+        printf("before exec : \n");
         funcs[inst.type](state, &inst);
+        printf("after exec : \n");
         debug_reg(state);
+        printf("\n\n");
         state->gp_regs[zero] = 0;
 
         if (inst.stop)

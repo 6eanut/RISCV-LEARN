@@ -17,6 +17,7 @@
 #include "./mmu.h"
 #include "./machine.h"
 #include "./inst.h"
+#include "./debug.h"
 #include "./interp.h"
 
 #define MYEXIT(msg)          \

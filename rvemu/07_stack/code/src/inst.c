@@ -50,6 +50,7 @@ static inst_t inst_btype_read(uint32_t raw_inst)
         .rs1 = RS1(raw_inst),
         .rs2 = RS2(raw_inst),
         .imm = imm,
+        .stop = true,
     };
 }
 
@@ -482,6 +483,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             inst->type = inst_beq;
             inst->rs1 = CRS1P(raw_inst) + 8;
             inst->rs2 = zero;
+            inst->stop = true;
             return;
         }
         case 0x7: // c.bnez
@@ -490,6 +492,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             inst->rs1 = CRS1P(raw_inst) + 8;
             inst->rs2 = zero;
             inst->type = inst_bne;
+            inst->stop = true;
             return;
         }
         default:
