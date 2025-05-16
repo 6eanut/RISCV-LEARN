@@ -79,3 +79,5 @@
 [05 Decoder](rvemu/05_decoder/note/05_decoder.md)
 
 [06 Interpreter](rvemu/06_interpreter/note/06_interpreter.md)
+
+[07 Stack](rvemu/07_stack/note/07_stack.md)
