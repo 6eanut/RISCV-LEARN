@@ -316,8 +316,8 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         }
         case 0x3:
         {
-            *inst = inst_cltype_read2(raw_inst);
-            inst->type = inst_flw;
+            *inst = inst_cltype_read1(raw_inst);
+            inst->type = inst_ld;
             return;
         }
         case 0x5:

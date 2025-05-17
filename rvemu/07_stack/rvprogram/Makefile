@@ -10,7 +10,7 @@ SRC=rvprogram.c
 OBJ=rvprogram
 
 $(OBJ):$(SRC)
-	$(CC) $< -o $@
+	$(CC) $< -o $@ -static
 
 all:$(OBJ)
 

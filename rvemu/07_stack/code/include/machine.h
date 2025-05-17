@@ -35,6 +35,6 @@ typedef struct
 
 void machine_load_program(machine_t *, char *);
 void machine_step(machine_t *);
-void machine_mmu_init(machine_t *, int, char *[]);
+void machine_mmu_init(machine_t *, uint64_t, char *[]);
 
 #endif

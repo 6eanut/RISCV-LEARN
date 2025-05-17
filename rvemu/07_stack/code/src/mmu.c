@@ -42,8 +42,7 @@ void mmu_load_segment(mmu_t *mmu, Elf64_Phdr_t *elf64_phdr, int fd)
         if (host_alloc != addr)
             MYEXIT(".bss mmap fail");
     }
-
-    mmu->host_alloc = mmu->host_base = MAX(mmu->host_alloc, host_alloc + bss_length);
+    mmu->host_alloc = mmu->host_base = MAX(mmu->host_alloc, host_alloc + length + bss_length);
     mmu->guest_alloc = TO_GUEST(mmu->host_alloc);
 }
 
@@ -65,6 +64,7 @@ uint64_t mmu_alloc(mmu_t *mmu, uint64_t size)
         mmu->host_alloc = ROUNDUP(TO_HOST(mmu->guest_alloc));
         if (munmap((void *)mmu->host_alloc, len) != 0)
             MYEXIT("munmap fail");
+        mmu->host_alloc -= len;
     }
     assert(mmu->host_alloc >= mmu->host_base);
     return res;
@@ -72,5 +72,7 @@ uint64_t mmu_alloc(mmu_t *mmu, uint64_t size)
 
 void mmu_write(uint64_t addr, uint8_t *data, uint64_t size)
 {
+    printf("mmu_write : \n");
+    printf("addr to write : %lx, size to write : %lu\n", addr, size);
     memcpy((void *)addr, (void *)data, (size_t)size);
 }

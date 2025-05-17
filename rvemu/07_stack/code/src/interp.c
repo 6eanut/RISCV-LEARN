@@ -1,44 +1,6 @@
 #include "../include/rvemu.h"
 // sgnj fclass mulh to be complete
 
-void debug_inst(state_t *state, inst_t *inst)
-{
-    printf("pc          :   %lx\n"
-           "type        :   %d\n"
-           "rs1         :   %hx\n"
-           "rs2         :   %hx\n"
-           "rd          :   %hx\n"
-           "imm         :   %x\n"
-           "rvc         :   %d\n"
-           "csr         :   %hx\n"
-           "stop        :   %d\n",
-           state->pc, inst->type,
-           inst->rs1, inst->rs2, inst->rd, inst->imm,
-           inst->rvc, inst->csr, inst->stop);
-}
-
-void debug_reg(state_t *state)
-{
-    printf("gp_reg : \n");
-    printf("x0  = %lx, x1  = %lx, x2  = %lx, x3  = %lx, x4  = %lx, x5  = %lx, x6  = %lx, x7  = %lx\n"
-           "x8  = %lx, x9  = %lx, x10 = %lx, x11 = %lx, x12 = %lx, x13 = %lx, x14 = %lx, x15 = %lx\n"
-           "x16 = %lx, x17 = %lx, x18 = %lx, x19 = %lx, x20 = %lx, x21 = %lx, x22 = %lx, x23 = %lx\n"
-           "x24 = %lx, x25 = %lx, x26 = %lx, x27 = %lx, x28 = %lx, x29 = %lx, x30 = %lx, x31 = %lx\n",
-           state->gp_regs[0], state->gp_regs[1], state->gp_regs[2], state->gp_regs[3], state->gp_regs[4], state->gp_regs[5], state->gp_regs[6], state->gp_regs[7],
-           state->gp_regs[8], state->gp_regs[9], state->gp_regs[10], state->gp_regs[11], state->gp_regs[12], state->gp_regs[13], state->gp_regs[14], state->gp_regs[15],
-           state->gp_regs[16], state->gp_regs[17], state->gp_regs[18], state->gp_regs[19], state->gp_regs[20], state->gp_regs[21], state->gp_regs[22], state->gp_regs[23],
-           state->gp_regs[24], state->gp_regs[25], state->gp_regs[26], state->gp_regs[27], state->gp_regs[28], state->gp_regs[29], state->gp_regs[30], state->gp_regs[31]);
-    printf("fp_reg : \n");
-    printf("f0  = %lx, f1  = %lx, f2  = %lx, f3  = %lx, f4  = %lx, f5  = %lx, f6  = %lx, f7  = %lx\n"
-           "f8  = %lx, f9  = %lx, f10 = %lx, f11 = %lx, f12 = %lx, f13 = %lx, f14 = %lx, f15 = %lx\n"
-           "f16 = %lx, f17 = %lx, f18 = %lx, f19 = %lx, f20 = %lx, f21 = %lx, f22 = %lx, f23 = %lx\n"
-           "f24 = %lx, f25 = %lx, f26 = %lx, f27 = %lx, f28 = %lx, f29 = %lx, f30 = %lx, f31 = %lx\n",
-           state->fp_regs[0].l, state->fp_regs[1].l, state->fp_regs[2].l, state->fp_regs[3].l, state->fp_regs[4].l, state->fp_regs[5].l, state->fp_regs[6].l, state->fp_regs[7].l,
-           state->fp_regs[8].l, state->fp_regs[9].l, state->fp_regs[10].l, state->fp_regs[11].l, state->fp_regs[12].l, state->fp_regs[13].l, state->fp_regs[14].l, state->fp_regs[15].l,
-           state->fp_regs[16].l, state->fp_regs[17].l, state->fp_regs[18].l, state->fp_regs[19].l, state->fp_regs[20].l, state->fp_regs[21].l, state->fp_regs[22].l, state->fp_regs[23].l,
-           state->fp_regs[24].l, state->fp_regs[25].l, state->fp_regs[26].l, state->fp_regs[27].l, state->fp_regs[28].l, state->fp_regs[29].l, state->fp_regs[30].l, state->fp_regs[31].l);
-}
-
 static void func_lui(state_t *state, inst_t *inst) { UFUNC(imm); }
 static void func_auipc(state_t *state, inst_t *inst) { UFUNC(imm + state->pc); }
 static void func_jal(state_t *state, inst_t *inst)
@@ -101,8 +63,16 @@ static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSR Instruction 
 static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_csrrci(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_lwu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint32_t *)(rs1 + imm)); }
-static void func_ld(state_t *state, inst_t *inst) { IFUNC(*(int64_t *)(rs1 + imm)); }
-static void func_sd(state_t *state, inst_t *inst) { *(uint64_t *)(state->gp_regs[inst->rs1] + inst->imm) = (uint64_t)state->gp_regs[inst->rs2]; }
+static void func_ld(state_t *state, inst_t *inst)
+{
+    IFUNC(*(int64_t *)(rs1 + imm));
+    printf("address to load : %lx\n", imm + rs1);
+}
+static void func_sd(state_t *state, inst_t *inst)
+{
+    printf("address to store : %lx\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm));
+    *(uint64_t *)(state->gp_regs[inst->rs1] + (int64_t)inst->imm) = (uint64_t)state->gp_regs[inst->rs2];
+}
 static void func_addiw(state_t *state, inst_t *inst) { IFUNC((int64_t)(int32_t)(rs1 + imm)); }
 static void func_slliw(state_t *state, inst_t *inst) { IFUNC((int64_t)(uint32_t)(rs1 << imm)); }
 static void func_srliw(state_t *state, inst_t *inst) { IFUNC((int64_t)((uint32_t)rs1 >> imm)); }

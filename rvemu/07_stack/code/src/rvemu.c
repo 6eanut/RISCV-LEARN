@@ -10,23 +10,26 @@ int main(int argc, char *argv[])
 
     machine_t machine = {0};
 
-    printf("hello rvemu\n");
+    // printf("hello rvemu\n");
     // debug_readElf(argv[1]);
 
     // load program
-    printf("machine_load_program : \n");
+    printf("1-machine_load_program : \n");
     machine_load_program(&machine, argv[1]);
     printf("entry           : %lx\n", machine.mmu.entry);
     printf("host_alloc      : %lx\n", machine.mmu.host_alloc);
     printf("guest_alloc     : %lx\n", machine.mmu.guest_alloc);
     printf("host_base       : %lx\n", machine.mmu.host_base);
+    printf("\n\n");
 
-    printf("machine_mmu_init : \n");
-    machine_mmu_init(&machine, argc, argv);
+    printf("2-machine_mmu_init : \n");
+    machine_mmu_init(&machine, (uint64_t)argc, argv);
     printf("host_alloc      : %lx\n", machine.mmu.host_alloc);
     printf("guest_alloc     : %lx\n", machine.mmu.guest_alloc);
     printf("host_base       : %lx\n", machine.mmu.host_base);
-    
+    printf("\n\n");
+
+    printf("3-machine_step : \n");
     // framework
     while (true)
     {
