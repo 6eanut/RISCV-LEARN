@@ -45,9 +45,9 @@ void machine_step(machine_t *machine)
 void machine_mmu_init(machine_t *machine, uint64_t argc, char *argv[])
 {
     uint64_t stack = mmu_alloc(&machine->mmu, STACK_SIZE);
-    printf("stack top addr : %lx\n", stack);
+    // printf("stack top addr : %lx\n", stack);
     machine->state.gp_regs[sp] = stack + STACK_SIZE;
-    printf("stack bottom addr : %lx\n", machine->state.gp_regs[sp]);
+    // printf("stack bottom addr : %lx\n", machine->state.gp_regs[sp]);
 
     machine->state.gp_regs[sp] -= 8; // auxv
     machine->state.gp_regs[sp] -= 8; // envp
@@ -65,6 +65,6 @@ void machine_mmu_init(machine_t *machine, uint64_t argc, char *argv[])
 
     machine->state.gp_regs[sp] -= 8; // argc
     mmu_write(machine->state.gp_regs[sp], (uint8_t *)&argc, 8);
-    printf("machine->state.gp_regs[sp] = %lx\n", machine->state.gp_regs[sp]);
-    printf("argc = %lu\n", *(uint64_t *)machine->state.gp_regs[sp]);
+    // printf("machine->state.gp_regs[sp] = %lx\n", machine->state.gp_regs[sp]);
+    // printf("argc = %lu\n", *(uint64_t *)machine->state.gp_regs[sp]);
 }

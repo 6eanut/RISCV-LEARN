@@ -1,10 +1,7 @@
-CC=riscv64-linux-gnu-gcc
-READELF=riscv64-linux-gnu-readelf
+CC=riscv64-unknown-elf-gcc
+READELF=riscv64-unknown-elf-readelf
 QEMU=qemu-riscv64
-OBJDUMP=riscv64-linux-gnu-objdump
-
-QFLAGS=-L /usr/riscv64-linux-gnu
-
+OBJDUMP=riscv64-unknown-elf-objdump
 
 SRC=rvprogram.c
 OBJ=rvprogram
@@ -13,18 +10,11 @@ $(OBJ):$(SRC)
 	$(CC) $< -o $@ -static
 
 all:$(OBJ)
+	$(QEMU) ./$(OBJ)
+	$(READELF) -a $(OBJ) > readelf.txt
+	$(OBJDUMP) -S $(OBJ) > code.txt
 
 clean:
 	rm $(OBJ)
 
-readelf:all
-	$(READELF) -a $(OBJ) > readelf.txt
-
-run:all
-	$(QEMU) $(QFLAGS) ./$(OBJ)
-
-code:all
-	$(OBJDUMP) -S $(OBJ) > code.txt
-
-
-.PHONY: clean all readelf code
+.PHONY: clean all

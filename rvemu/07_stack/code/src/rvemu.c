@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     printf("host_base       : %lx\n", machine.mmu.host_base);
     printf("\n\n");
 
-    printf("3-machine_step : \n");
+    printf("3-machine_step : \n\n\n");
     // framework
     while (true)
     {

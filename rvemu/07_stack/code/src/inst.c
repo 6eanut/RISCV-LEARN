@@ -294,10 +294,11 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         inst->rvc = true;
         switch (funct3)
         {
-        case 0x0:
-        {
+        case 0x0: // c.addi4spn : addi rd, x2, uimm
+        {         // 000 uimm[5:4|9:6|2|3] rd' 00
             *inst = inst_ciwtype_read(raw_inst);
             inst->type = inst_addi;
+            inst->rs1 = sp;
             if (inst->imm == 0)
                 MYEXIT("Illegal instruction");
             return;
