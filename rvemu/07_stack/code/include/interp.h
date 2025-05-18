@@ -18,12 +18,15 @@ typedef void(func_t)(state_t *, inst_t *);
     state->gp_regs[inst->rd] = (expr);
 
 #define BFUNC(expr)                           \
-    state->exit_reason = direct_branch;            \
+    state->exit_reason = direct_branch;       \
     uint64_t rs1 = state->gp_regs[inst->rs1]; \
     uint64_t rs2 = state->gp_regs[inst->rs2]; \
     int64_t imm = (int64_t)inst->imm;         \
     if ((expr))                               \
-        state->pc += imm;
+    {                                         \
+        state->pc += imm;                     \
+        inst->stop = true;                    \
+    }
 
 #define RFUNC_F_D(expr)                                               \
     double rs1 = state->fp_regs[inst->rs1].d;                         \

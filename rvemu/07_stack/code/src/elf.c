@@ -14,7 +14,7 @@ void debug_print_ElfHeader(Elf64_Ehdr_t *elf64_ehdr_ptr)
 {
     printf("***Elf Header***\n");
     Elf64_Ehdr_t elf64_ehdr = *elf64_ehdr_ptr;
-    printf("ei_mag          :   %x\n"
+    printf("ei_mag          :   %x %x %x %x\n"
            "ei_class        :   %x\n"
            "ei_data         :   %x\n"
            "ei_version      :   %x\n"
@@ -33,7 +33,7 @@ void debug_print_ElfHeader(Elf64_Ehdr_t *elf64_ehdr_ptr)
            "e_shentsize     :   %hx\n"
            "e_shnum         :   %hx\n"
            "e_shstrndx      :   %hx\n",
-           *(uint32_t *)elf64_ehdr.e_ident,
+           *(uint32_t *)elf64_ehdr.e_ident, *(uint32_t *)(elf64_ehdr.e_ident + 4), *(uint32_t *)(elf64_ehdr.e_ident + 8), *(uint32_t *)(elf64_ehdr.e_ident + 12),
            elf64_ehdr.e_ident[4], elf64_ehdr.e_ident[5],
            elf64_ehdr.e_ident[6], elf64_ehdr.e_ident[7],
            elf64_ehdr.e_ident[8],

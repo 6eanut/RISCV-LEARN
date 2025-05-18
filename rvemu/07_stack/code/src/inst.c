@@ -50,7 +50,6 @@ static inst_t inst_btype_read(uint32_t raw_inst)
         .rs1 = RS1(raw_inst),
         .rs2 = RS2(raw_inst),
         .imm = imm,
-        .stop = true,
     };
 }
 
@@ -333,10 +332,10 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             inst->type = inst_sw;
             return;
         }
-        case 0x7:
+        case 0x7: // c.sd, only in RV64IC
         {
-            *inst = inst_cstype_read2(raw_inst);
-            inst->type = inst_fsw;
+            *inst = inst_cstype_read1(raw_inst);
+            inst->type = inst_sd;
             return;
         }
         default:
@@ -484,7 +483,6 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             inst->type = inst_beq;
             inst->rs1 = CRS1P(raw_inst) + 8;
             inst->rs2 = zero;
-            inst->stop = true;
             return;
         }
         case 0x7: // c.bnez
@@ -493,7 +491,6 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             inst->rs1 = CRS1P(raw_inst) + 8;
             inst->rs2 = zero;
             inst->type = inst_bne;
-            inst->stop = true;
             return;
         }
         default:
@@ -655,6 +652,8 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             {
             case 0x0: // jalr
             {
+                if (inst->rd == 0)
+                    inst->rd = ra;
                 inst->type = inst_jalr;
                 inst->stop = true;
                 return;

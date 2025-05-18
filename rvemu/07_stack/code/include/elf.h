@@ -50,4 +50,5 @@ typedef struct
 
 void read_elf_phdr(Elf64_Ehdr_t *, Elf64_Phdr_t *, int, FILE *);
 
+void debug_readElf(char *);
 #endif

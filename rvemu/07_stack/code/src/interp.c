@@ -298,6 +298,8 @@ func_t *funcs[] = {
     func_fmv_d_x,
 };
 
+// int insts_execed = 0;
+
 void interp_exec_bb(state_t *state)
 {
     while (true)
@@ -310,10 +312,14 @@ void interp_exec_bb(state_t *state)
         debug_inst(state, &inst);
         printf("before exec : \n");
         funcs[inst.type](state, &inst);
-        printf("after exec : \n");
-        debug_reg(state);
-        printf("\n\n");
         state->gp_regs[zero] = 0;
+        printf("after exec : \n");
+        // if (state->pc == 0x888000107c0)
+        //     MYEXIT("0x888000107c0 arrive");
+        debug_reg(state);
+        // if (++insts_execed >= 100)
+        //     MYEXIT("stop for debug");
+        printf("\n\n");
 
         if (inst.stop)
             break;
