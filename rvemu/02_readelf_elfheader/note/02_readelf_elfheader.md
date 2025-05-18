@@ -8,7 +8,7 @@ rvemu模拟器就是把一个RISC-V的程序rvprogram作为参数传递给rvemu�
 
 ## 2 ELF
 
-在rvos中，使用riscv64-unknown-elf-gcc来进行编译，其用于开发操作系统等裸机程序；传给rvemu的程序rvprogram是一个linux用户空间的可执行程序，故而用riscv64-linux-gnu-gcc来编译，然后可以借助riscv64-linux-gnu-readelf来查看rvprogram的内容，使用qemu-riscv64来模拟运行rvprogram。
+~~在rvos中，使用riscv64-unknown-elf-gcc来进行编译，其用于开发操作系统等裸机程序；传给rvemu的程序rvprogram是一个linux用户空间的可执行程序，故而用riscv64-linux-gnu-gcc来编译，然后可以借助riscv64-linux-gnu-readelf来查看rvprogram的内容，使用qemu-riscv64来模拟运行rvprogram。~~
 
 ### 2-1 rvprogram
 

@@ -5,10 +5,13 @@
 ## 1 环境准备
 
 ```shell
-sudo apt install -y clang qemu-user gcc-riscv64-linux-gnu
+sudo apt install -y clang qemu-user
+wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2025.05.16/riscv64-elf-ubuntu-24.04-gcc-nightly-2025.05.16-nightly.tar.xz
+tar -xvf riscv64-elf-ubuntu-24.04-gcc-nightly-2025.05.16-nightly.tar.xz
+# 配置环境变量PATH
 ```
 
-因为本实验是用riscv64-linux-gnu-gcc来编译Linux用户态可执行程序，故而需要用qemu-user来模拟运行。
+~~因为本实验是用riscv64-unknown-elf-gcc来编译Linux用户态可执行程序，故而需要用qemu-user来模拟运行。~~
 
 ## 2 项目架构
 
