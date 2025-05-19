@@ -211,7 +211,7 @@ static inst_t inst_cimm114981067315_read(uint16_t raw_inst)
     uint32_t imm6 = (raw_inst >> 7) & 0x1;
     uint32_t imm7 = (raw_inst >> 6) & 0x1;
     uint32_t imm3_1 = (raw_inst >> 3) & 0x7;
-    uint32_t imm5 = (raw_inst >> 2) & 0x11;
+    uint32_t imm5 = (raw_inst >> 2) & 0x1;
     int32_t imm = (imm11 << 11) + (imm4 << 4) + (imm9_8 << 8) + (imm10 << 10) + (imm6 << 6) + (imm7 << 7) + (imm3_1 << 1) + (imm5 << 5);
     imm = (imm << 20) >> 20;
     return (inst_t){
@@ -377,7 +377,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         case 0x3:
         {
             uint32_t rd = CRD(raw_inst);
-            if (rd == 2) // c.addi16s[]
+            if (rd == 2) // c.addi16sp
             {
                 *inst = inst_cimm946875_read(raw_inst);
                 assert(inst->imm != 0);
@@ -419,7 +419,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             case 0x2: // c.andi
             {
                 *inst = inst_cimm540_read(raw_inst);
-                inst->type = inst_addi;
+                inst->type = inst_andi;
                 inst->rs1 = CRS1P(raw_inst) + 8;
                 inst->rd = CRDP_HIGH(raw_inst) + 8;
                 return;
@@ -652,8 +652,8 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
             {
             case 0x0: // jalr
             {
-                if (inst->rd == 0)
-                    inst->rd = ra;
+                // if (inst->rd == 0)
+                //     inst->rd = ra;
                 inst->type = inst_jalr;
                 inst->stop = true;
                 return;

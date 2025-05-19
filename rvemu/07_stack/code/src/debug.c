@@ -78,8 +78,8 @@ void debug_inst(state_t *state, inst_t *inst)
     if (inst->imm != 0)
         printf("  Immediate: %d (0x%x)\n", inst->imm, inst->imm);
     
-    if (inst->csr != 0)
-        printf("  CSR: 0x%hx\n", inst->csr);
+    // if (inst->csr != 0)
+        // printf("  CSR: 0x%hx\n", inst->csr);
     
     printf("  RVC: %s\n", inst->rvc ? "yes" : "no");
     printf("  Stop: %s\n", inst->stop ? "true" : "false");

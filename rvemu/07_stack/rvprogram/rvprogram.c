@@ -1,9 +1,8 @@
 int main()
 {
-       int sum = 0;
-       for (int i = 0; i < 10; i++)
-       {
-              sum += i;
-       }
+       int a = 2, b = 3, c = 4;
+       a += b;
+       b += c;
+       c += a;
        return 0;
 }

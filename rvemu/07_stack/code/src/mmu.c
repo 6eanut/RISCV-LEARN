@@ -27,23 +27,21 @@ void mmu_load_segment(mmu_t *mmu, Elf64_Phdr_t *elf64_phdr, int fd)
     uint64_t addr = ROUNDDOWN(TO_HOST(elf64_phdr->p_vaddr));
     uint64_t length = ROUNDUP(elf64_phdr->p_filesz + TO_HOST(elf64_phdr->p_vaddr) - addr);
     uint64_t host_alloc = (uint64_t)mmap((void *)addr, length, prot, MAP_PRIVATE | MAP_FIXED, fd, offset);
-    assert(host_alloc == addr);
-    // debug_mmap(addr, length, prot, offset, host_alloc);
+    debug_mmap(addr, length, prot, offset, host_alloc);
     if (host_alloc != addr)
         MYEXIT(".text/.data mmap fail");
 
     uint64_t bss_length = ROUNDUP(elf64_phdr->p_memsz + TO_HOST(elf64_phdr->p_vaddr) - addr) - length;
-    if (bss_length)
+    if (bss_length > 0)
     {
         // for .data
         addr = ROUNDUP(addr + length);
-        host_alloc = (uint64_t)mmap((void *)addr, bss_length, prot, MAP_ANONYMOUS | MAP_FIXED | MAP_PRIVATE, -1, 0);
-        assert(host_alloc == addr);
-        // debug_mmap(addr, bss_length, prot, 0, host_alloc);
-        if (host_alloc != addr)
+        uint64_t bss_host_alloc = (uint64_t)mmap((void *)addr, bss_length, prot, MAP_ANONYMOUS | MAP_FIXED | MAP_PRIVATE, -1, 0);
+        debug_mmap(addr, bss_length, prot, 0, host_alloc);
+        if (bss_host_alloc != addr)
             MYEXIT(".bss mmap fail");
     }
-    mmu->host_alloc = mmu->host_base = MAX(mmu->host_alloc, host_alloc + length + bss_length);
+    mmu->host_alloc = mmu->host_base = MAX(mmu->host_alloc, host_alloc + ROUNDUP(elf64_phdr->p_memsz + TO_HOST(elf64_phdr->p_vaddr) - addr));
     mmu->guest_alloc = TO_GUEST(mmu->host_alloc);
 }
 
@@ -58,6 +56,11 @@ uint64_t mmu_alloc(mmu_t *mmu, uint64_t size)
         uint64_t addr = (uint64_t)mmap((void *)mmu->host_alloc, ROUNDUP(size), PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED, -1, 0);
         assert(addr == mmu->host_alloc);
         mmu->host_alloc += ROUNDUP(size);
+        printf("mmu_alloc : \n");
+        printf("addr    : %lx\n"
+               "length  : %lx\n"
+               "size    : %lx\n",
+               mmu->host_alloc, ROUNDUP(size), size);
     }
     else if (size < 0 && ROUNDUP(TO_HOST(mmu->guest_alloc)) < mmu->host_alloc)
     {
@@ -73,7 +76,7 @@ uint64_t mmu_alloc(mmu_t *mmu, uint64_t size)
 
 void mmu_write(uint64_t addr, uint8_t *data, uint64_t size)
 {
-    // printf("mmu_write : \n");
-    // printf("addr to write : %lx, size to write : %lu\n", addr, size);
+    printf("mmu_write : \n");
+    printf("addr to write : %lx, size to write : %lu\n", addr, size);
     memcpy((void *)addr, (void *)data, (size_t)size);
 }

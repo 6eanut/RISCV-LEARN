@@ -21,14 +21,22 @@ static void func_blt(state_t *state, inst_t *inst) { BFUNC((int64_t)rs1 < (int64
 static void func_bge(state_t *state, inst_t *inst) { BFUNC((int64_t)rs1 >= (int64_t)rs2); }
 static void func_bltu(state_t *state, inst_t *inst) { BFUNC((uint64_t)rs1 < (uint64_t)rs2); }
 static void func_bgeu(state_t *state, inst_t *inst) { BFUNC((uint64_t)rs1 >= (uint64_t)rs2); }
-static void func_lb(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int8_t *)(rs1 + imm)); }
-static void func_lh(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int16_t *)(rs1 + imm)); }
-static void func_lw(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int32_t *)(rs1 + imm)); }
-static void func_lbu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint8_t *)(rs1 + imm)); }
-static void func_lhu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint16_t *)(rs1 + imm)); }
-static void func_sb(state_t *state, inst_t *inst) { *(uint8_t *)(state->gp_regs[inst->rs1] + inst->imm) = (uint8_t)state->gp_regs[inst->rs2]; }
-static void func_sh(state_t *state, inst_t *inst) { *(uint16_t *)(state->gp_regs[inst->rs1] + inst->imm) = (uint16_t)state->gp_regs[inst->rs2]; }
-static void func_sw(state_t *state, inst_t *inst) { *(uint32_t *)(state->gp_regs[inst->rs1] + inst->imm) = (uint32_t)state->gp_regs[inst->rs2]; }
+static void func_lb(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int8_t *)TO_HOST(rs1 + imm)); }
+static void func_lh(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int16_t *)TO_HOST(rs1 + imm)); }
+static void func_lw(state_t *state, inst_t *inst) { IFUNC((int64_t)*(int32_t *)TO_HOST(rs1 + imm)); }
+static void func_lbu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint8_t *)TO_HOST(rs1 + imm)); }
+static void func_lhu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint16_t *)TO_HOST(rs1 + imm)); }
+static void func_sb(state_t *state, inst_t *inst)
+{
+    printf("address to store : %lx\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm));
+    *(uint8_t *)TO_HOST(state->gp_regs[inst->rs1] + inst->imm) = (uint8_t)state->gp_regs[inst->rs2];
+}
+static void func_sh(state_t *state, inst_t *inst) { *(uint16_t *)TO_HOST(state->gp_regs[inst->rs1] + inst->imm) = (uint16_t)state->gp_regs[inst->rs2]; }
+static void func_sw(state_t *state, inst_t *inst)
+{
+    printf("address to store : %lx\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm));
+    *(uint32_t *)TO_HOST(state->gp_regs[inst->rs1] + inst->imm) = (uint32_t)state->gp_regs[inst->rs2];
+}
 static void func_addi(state_t *state, inst_t *inst) { IFUNC(rs1 + imm); }
 static void func_slti(state_t *state, inst_t *inst) { IFUNC((int64_t)rs1 < (int64_t)imm); }
 static void func_sltiu(state_t *state, inst_t *inst) { IFUNC((uint64_t)rs1 < (uint64_t)imm); }
@@ -62,16 +70,18 @@ static void func_csrrc(state_t *state, inst_t *inst) { printf("CSR Instruction !
 static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_csrrci(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
-static void func_lwu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint32_t *)(rs1 + imm)); }
+static void func_lwu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint32_t *)TO_HOST(rs1 + imm)); }
 static void func_ld(state_t *state, inst_t *inst)
 {
-    IFUNC(*(int64_t *)(rs1 + imm));
-    printf("address to load : %lx\n", imm + rs1);
+    int64_t imm_debug = (int64_t)inst->imm;
+    uint64_t rs1_debug = state->gp_regs[inst->rs1];
+    printf("address to load : %lx\n", TO_HOST(imm_debug + rs1_debug));
+    IFUNC(*(int64_t *)TO_HOST(rs1 + imm));
 }
 static void func_sd(state_t *state, inst_t *inst)
 {
     printf("address to store : %lx\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm));
-    *(uint64_t *)(state->gp_regs[inst->rs1] + (int64_t)inst->imm) = (uint64_t)state->gp_regs[inst->rs2];
+    *(uint64_t *)TO_HOST(state->gp_regs[inst->rs1] + inst->imm) = (uint64_t)state->gp_regs[inst->rs2];
 }
 static void func_addiw(state_t *state, inst_t *inst) { IFUNC((int64_t)(int32_t)(rs1 + imm)); }
 static void func_slliw(state_t *state, inst_t *inst) { IFUNC((int64_t)(uint32_t)(rs1 << imm)); }
@@ -104,7 +114,7 @@ static void func_fnmsub_s(state_t *state, inst_t *inst) { R4FUNC_S(-(rs1 * rs2) 
 static void func_fnmadd_s(state_t *state, inst_t *inst) { R4FUNC_S(-(rs1 * rs2) - rs3); }
 static void func_fadd_s(state_t *state, inst_t *inst) { RFUNC_F_S(rs1 + rs2); }
 static void func_fsub_s(state_t *state, inst_t *inst) { RFUNC_F_S(rs1 - rs2); }
-static void func_fmul_s(state_t *state, inst_t *inst) { RFUNC_F_S(rs1 + rs2); }
+static void func_fmul_s(state_t *state, inst_t *inst) { RFUNC_F_S(rs1 * rs2); }
 static void func_fdiv_s(state_t *state, inst_t *inst) { RFUNC_F_S(rs1 / rs2); }
 static void func_fsqrt_s(state_t *state, inst_t *inst) { RFUNC_F_S(sqrtf(rs1)); }
 static void func_fsgnj_s(state_t *state, inst_t *inst) { printf("fsgn !\n"); }
@@ -137,11 +147,11 @@ static void func_fadd_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 + rs2); }
 static void func_fsub_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 - rs2); }
 static void func_fmul_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 * rs2); }
 static void func_fdiv_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 / rs2); }
-static void func_fsqrt_d(state_t *state, inst_t *inst) { RFUNC_F_D(sqrtf(rs1)); }
+static void func_fsqrt_d(state_t *state, inst_t *inst) { RFUNC_F_D(sqrt(rs1)); }
 static void func_fsgnj_d(state_t *state, inst_t *inst) { printf("fsgn !\n"); }
 static void func_fsgnjn_d(state_t *state, inst_t *inst) { printf("fsgn !\n"); }
 static void func_fsgnjx_d(state_t *state, inst_t *inst) { printf("fsgn !\n"); }
-static void func_fmin_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 > rs2 ? rs1 : rs2); }
+static void func_fmin_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 < rs2 ? rs1 : rs2); }
 static void func_fmax_d(state_t *state, inst_t *inst) { RFUNC_F_D(rs1 > rs2 ? rs1 : rs2); }
 static void func_fcvt_s_d(state_t *state, inst_t *inst) { state->fp_regs[inst->rd].s = (float)state->fp_regs[inst->rs1].d; }
 static void func_fcvt_d_s(state_t *state, inst_t *inst) { state->fp_regs[inst->rd].d = (double)state->fp_regs[inst->rs1].s; }
@@ -306,18 +316,18 @@ void interp_exec_bb(state_t *state)
     {
         inst_t inst = {0};
         printf("fetch inst from pc : %lx\n", state->pc);
-        uint32_t raw_inst = *(uint32_t *)state->pc;
+        uint32_t raw_inst = *(uint32_t *)TO_HOST(state->pc);
         printf("fetch inst success, raw_inst : %x\n", raw_inst);
         inst_decode(&inst, raw_inst);
         debug_inst(state, &inst);
-        printf("before exec : \n");
+        // printf("before exec : \n");
         funcs[inst.type](state, &inst);
         state->gp_regs[zero] = 0;
-        printf("after exec : \n");
+        // printf("after exec : \n");
         // if (state->pc == 0x888000107c0)
         //     MYEXIT("0x888000107c0 arrive");
         debug_reg(state);
-        // if (++insts_execed >= 100)
+        // if (++insts_execed >= 410)
         //     MYEXIT("stop for debug");
         printf("\n\n");
 

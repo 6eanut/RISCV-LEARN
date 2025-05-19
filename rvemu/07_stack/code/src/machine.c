@@ -12,7 +12,7 @@ void machine_load_program(machine_t *machine, char *program)
     if (fread(buffer_ElfHeader, 1, sizeof(Elf64_Ehdr_t), file) != sizeof(Elf64_Ehdr_t))
         MYEXIT("fread fail");
     Elf64_Ehdr_t elf64_ehdr = *(Elf64_Ehdr_t *)buffer_ElfHeader;
-    machine->mmu.entry = TO_HOST(elf64_ehdr.e_entry);
+    machine->mmu.entry = elf64_ehdr.e_entry;
 
     // for .text .data
     uint8_t buffer_ProgramHeaderEntry[elf64_ehdr.e_phentsize];
@@ -45,9 +45,9 @@ void machine_step(machine_t *machine)
 void machine_mmu_init(machine_t *machine, uint64_t argc, char *argv[])
 {
     uint64_t stack = mmu_alloc(&machine->mmu, STACK_SIZE);
-    // printf("stack top addr : %lx\n", stack);
-    machine->state.gp_regs[sp] = stack + STACK_SIZE;
-    // printf("stack bottom addr : %lx\n", machine->state.gp_regs[sp]);
+    printf("stack top addr : %lx\n", stack);
+    machine->state.gp_regs[sp] = TO_GUEST(stack + STACK_SIZE);
+    printf("stack bottom addr : %lx\n", machine->state.gp_regs[sp]);
 
     machine->state.gp_regs[sp] -= 8; // auxv
     machine->state.gp_regs[sp] -= 8; // envp
@@ -58,13 +58,14 @@ void machine_mmu_init(machine_t *machine, uint64_t argc, char *argv[])
     {
         machine->state.gp_regs[sp] -= 8;
         uint64_t len = strlen(argv[i]);
+        printf("argv[%d] : %s, len = %lu\n", i, argv[i], len);
         uint64_t addr = mmu_alloc(&machine->mmu, len);
         mmu_write(addr, (uint8_t *)argv[i], len);
-        mmu_write(machine->state.gp_regs[sp], (uint8_t *)&addr, 8);
+        mmu_write(TO_HOST(machine->state.gp_regs[sp]), (uint8_t *)&addr, 8);
     }
 
     machine->state.gp_regs[sp] -= 8; // argc
-    mmu_write(machine->state.gp_regs[sp], (uint8_t *)&argc, 8);
+    mmu_write(TO_HOST(machine->state.gp_regs[sp]), (uint8_t *)&argc, 8);
     // printf("machine->state.gp_regs[sp] = %lx\n", machine->state.gp_regs[sp]);
     // printf("argc = %lu\n", *(uint64_t *)machine->state.gp_regs[sp]);
 }
