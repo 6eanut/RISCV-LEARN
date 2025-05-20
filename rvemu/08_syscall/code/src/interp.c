@@ -5,7 +5,7 @@ static void func_lui(state_t *state, inst_t *inst) { UFUNC(imm); }
 static void func_auipc(state_t *state, inst_t *inst) { UFUNC(imm + state->pc); }
 static void func_jal(state_t *state, inst_t *inst)
 {
-    state->exit_reason = indirect_branch;
+    state->exit_reason = direct_branch;
     state->gp_regs[inst->rd] = state->pc + (inst->rvc ? 2 : 4);
     state->pc += (int64_t)inst->imm;
 }
