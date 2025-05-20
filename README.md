@@ -81,3 +81,5 @@
 [06 Interpreter](rvemu/06_interpreter/note/06_interpreter.md)
 
 [07 Stack](rvemu/07_stack/note/07_stack.md)
+
+[08 Syscall](rvemu/08_syscall/note/08_syscall.md)

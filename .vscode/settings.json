@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "types.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "rvemu.h": "c"
     }
 }
