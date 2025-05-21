@@ -1309,6 +1309,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         {
             uint32_t funct2 = FUNCT2(raw_inst);
             *inst = inst_r4type_read(raw_inst);
+            // printf("funct2 : %x\n", funct2);
             switch (funct2)
             {
             case 0x0:

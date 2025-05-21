@@ -32,11 +32,11 @@ const char *inst_names[] = {
     "fcvt_lu_d", "fmv_x_d", "fcvt_d_l", "fcvt_d_lu",
     "fmv_d_x"};
 
-// const char *fp_reg_names[] = {
-//     "ft0", "ft1", "ft2", "ft3", "ft4", "ft5", "ft6", "ft7",
-//     "fs0", "fs1", "fa0", "fa1", "fa2", "fa3", "fa4", "fa5",
-//     "fa6", "fa7", "fs2", "fs3", "fs4", "fs5", "fs6", "fs7",
-//     "fs8", "fs9", "fs10", "fs11", "ft8", "ft9", "ft10", "ft11"};
+const char *fp_reg_names[] = {
+    "ft0", "ft1", "ft2", "ft3", "ft4", "ft5", "ft6", "ft7",
+    "fs0", "fs1", "fa0", "fa1", "fa2", "fa3", "fa4", "fa5",
+    "fa6", "fa7", "fs2", "fs3", "fs4", "fs5", "fs6", "fs7",
+    "fs8", "fs9", "fs10", "fs11", "ft8", "ft9", "ft10", "ft11"};
 
 void debug_reg(state_t *state)
 {
@@ -51,35 +51,98 @@ void debug_reg(state_t *state)
     }
     printf("└─────────┴────────────────────┴─────────┴────────────────────┘\n");
 
-    // 打印浮点寄存器
-    // printf("\nFloating Point Registers:\n");
-    // printf("┌─────────┬────────────────────┬─────────┬────────────────────┐\n");
-    // for (int i = 0; i < num_fp_regs; i++)
-    // {
-    //     printf("│ %-7s │ 0x%016lx ", fp_reg_names[i], state->fp_regs[i].l);
-    //     if ((i + 1) % 2 == 0)
-    //         printf("│\n");
-    // }
-    // printf("└─────────┴────────────────────┴─────────┴────────────────────┘\n");
+    printf("\nFloating Point Registers:\n");
+    printf("┌─────────┬────────────────────┬─────────┬────────────────────┐\n");
+    for (int i = 0; i < num_fp_regs; i++)
+    {
+        printf("│ %-7s │ 0x%016lx ", fp_reg_names[i], state->fp_regs[i].l);
+        if ((i + 1) % 2 == 0)
+            printf("│\n");
+    }
+    printf("└─────────┴────────────────────┴─────────┴────────────────────┘\n");
 }
 
-void debug_inst(state_t *state, inst_t *inst)
-{
+// void debug_inst(state_t *state, inst_t *inst) {
+//     printf("Instruction debug:\n");
+//     printf("  Type: %s\n", inst_names[inst->type]);
+
+//     bool is_float_inst = (inst->type >= inst_flw && inst->type <= inst_fmv_d_x);
+
+//     if (is_float_inst) {
+//         if (inst->rs1 != zero)
+//             printf("  Source reg1: %s (%hx)\n", fp_reg_names[inst->rs1], inst->rs1);
+//         if (inst->rs2 != zero)
+//             printf("  Source reg2: %s (%hx)\n", fp_reg_names[inst->rs2], inst->rs2);
+//         if (inst->rd != zero)
+//             printf("  Destination reg: %s (%hx)\n", fp_reg_names[inst->rd], inst->rd);
+//     } else {
+//         if (inst->rs1 != zero)
+//             printf("  Source reg1: %s (%hx)\n", reg_names[inst->rs1], inst->rs1);
+//         if (inst->rs2 != zero)
+//             printf("  Source reg2: %s (%hx)\n", reg_names[inst->rs2], inst->rs2);
+//         if (inst->rd != zero)
+//             printf("  Destination reg: %s (%hx)\n", reg_names[inst->rd], inst->rd);
+//     }
+
+//     if (inst->imm != 0)
+//         printf("  Immediate: %d (0x%x)\n", inst->imm, inst->imm);
+
+//     printf("  RVC: %s\n", inst->rvc ? "yes" : "no");
+//     printf("  Stop: %s\n", inst->stop ? "true" : "false");
+// }
+
+void debug_inst(state_t *state, inst_t *inst) {
     printf("Instruction debug:\n");
     printf("  Type: %s\n", inst_names[inst->type]);
 
-    if (inst->rs1 != zero)
-        printf("  Source reg1: %s (%hx)\n", reg_names[inst->rs1], inst->rs1);
-    if (inst->rs2 != zero)
-        printf("  Source reg2: %s (%hx)\n", reg_names[inst->rs2], inst->rs2);
-    if (inst->rd != zero)
-        printf("  Destination reg: %s (%hx)\n", reg_names[inst->rd], inst->rd);
+    bool is_float_inst = (inst->type >= inst_flw && inst->type <= inst_fmv_d_x);
+
+    bool src_is_int = false;
+    bool dest_is_float = false;
+
+    if (is_float_inst) {
+        if (inst->type == inst_flw || inst->type == inst_fld || 
+            inst->type == inst_fmv_w_x || inst->type == inst_fmv_d_x ||
+            inst->type == inst_fcvt_s_w || inst->type == inst_fcvt_s_wu ||
+            inst->type == inst_fcvt_d_w || inst->type == inst_fcvt_d_wu ||
+            inst->type == inst_fcvt_s_l || inst->type == inst_fcvt_s_lu ||
+            inst->type == inst_fcvt_d_l || inst->type == inst_fcvt_d_lu) {
+            src_is_int = true;
+            dest_is_float = true;
+        }
+        else {
+            dest_is_float = true;
+        }
+    }
+
+    if (inst->rs1 != zero) {
+        if (src_is_int) {
+            printf("  Source reg1: %s (%hx)\n", reg_names[inst->rs1], inst->rs1);
+        } else if (dest_is_float) {
+            printf("  Source reg1: %s (%hx)\n", fp_reg_names[inst->rs1], inst->rs1);
+        } else {
+            printf("  Source reg1: %s (%hx)\n", reg_names[inst->rs1], inst->rs1);
+        }
+    }
+
+    if (inst->rs2 != zero) {
+        if (is_float_inst && !src_is_int) {
+            printf("  Source reg2: %s (%hx)\n", fp_reg_names[inst->rs2], inst->rs2);
+        } else {
+            printf("  Source reg2: %s (%hx)\n", reg_names[inst->rs2], inst->rs2);
+        }
+    }
+
+    if (inst->rd != zero) {
+        if (dest_is_float) {
+            printf("  Destination reg: %s (%hx)\n", fp_reg_names[inst->rd], inst->rd);
+        } else {
+            printf("  Destination reg: %s (%hx)\n", reg_names[inst->rd], inst->rd);
+        }
+    }
 
     if (inst->imm != 0)
         printf("  Immediate: %d (0x%x)\n", inst->imm, inst->imm);
-
-    // if (inst->csr != 0)
-    // printf("  CSR: 0x%hx\n", inst->csr);
 
     printf("  RVC: %s\n", inst->rvc ? "yes" : "no");
     printf("  Stop: %s\n", inst->stop ? "true" : "false");

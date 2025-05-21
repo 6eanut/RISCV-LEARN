@@ -77,11 +77,11 @@ static void func_ecall(state_t *state, inst_t *inst)
 #endif
 }
 static void func_ebreak(state_t *state, inst_t *inst) { printf("ebreak !\n"); }
-static void func_csrrw(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
-static void func_csrrs(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
-static void func_csrrc(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
-static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
-static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
+static void func_csrrw(state_t *state, inst_t *inst) { printf("CSRRW Instruction ! Do Nothing !\n"); }
+static void func_csrrs(state_t *state, inst_t *inst) { printf("CSRRS Instruction ! Do Nothing !\n"); }
+static void func_csrrc(state_t *state, inst_t *inst) { printf("CSRRC Instruction ! Do Nothing !\n"); }
+static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSRRWI Instruction ! Do Nothing !\n"); }
+static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSRRCI Instruction ! Do Nothing !\n"); }
 static void func_csrrci(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_lwu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint32_t *)TO_HOST(rs1 + imm)); }
 static void func_ld(state_t *state, inst_t *inst)
@@ -186,8 +186,21 @@ static void func_fcvt_l_s(state_t *state, inst_t *inst) { state->gp_regs[inst->r
 static void func_fcvt_lu_s(state_t *state, inst_t *inst) { state->gp_regs[inst->rd] = (uint64_t)state->fp_regs[inst->rs1].s; }
 static void func_fcvt_s_l(state_t *state, inst_t *inst) { state->fp_regs[inst->rd].s = (float)(int64_t)state->gp_regs[inst->rs1]; }
 static void func_fcvt_s_lu(state_t *state, inst_t *inst) { state->fp_regs[inst->rd].s = (float)(uint64_t)state->gp_regs[inst->rs1]; }
-static void func_fld(state_t *state, inst_t *inst) { state->fp_regs[inst->rd].l = *(uint64_t *)TO_HOST(state->gp_regs[inst->rs1] + (int64_t)inst->imm); }
-static void func_fsd(state_t *state, inst_t *inst) { *(uint64_t *)TO_HOST(state->gp_regs[inst->rs1] + (int64_t)inst->imm) = state->fp_regs[inst->rs2].l; }
+static void func_fld(state_t *state, inst_t *inst)
+{
+    state->fp_regs[inst->rd].l = *(uint64_t *)TO_HOST(state->gp_regs[inst->rs1] + (int64_t)inst->imm);
+#ifdef DEBUG
+    printf("state->fp_regs[%hhx] : %lx\n", inst->rd, state->fp_regs[inst->rd].l);
+    printf("address to load : %lx, data to load : %lf\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm), state->fp_regs[inst->rd].d);
+#endif
+}
+static void func_fsd(state_t *state, inst_t *inst)
+{
+    *(uint64_t *)TO_HOST(state->gp_regs[inst->rs1] + (int64_t)inst->imm) = state->fp_regs[inst->rs2].l;
+#ifdef DEBUG
+    printf("address to store : %lx, data to store : %lf\n", (state->gp_regs[inst->rs1] + (int64_t)inst->imm), state->fp_regs[inst->rs2].d);
+#endif
+}
 static void func_fmadd_d(state_t *state, inst_t *inst) { R4FUNC_D(rs1 * rs2 + rs3); }
 static void func_fmsub_d(state_t *state, inst_t *inst) { R4FUNC_D(rs1 * rs2 - rs3); }
 static void func_fnmsub_d(state_t *state, inst_t *inst) { R4FUNC_D(-(rs1 * rs2) + rs3); }
