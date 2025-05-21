@@ -1,6 +1,8 @@
 # RISCV-LEARN
 
-**RISC-V-Reader**
+## RISC-V-Reader
+
+> The RISC-V Reader : An Open Architecture Atlas中文版阅读笔记
 
 [手册原文](rvreader/RISC-V-Reader-Chinese-v1.pdf)
 
@@ -26,9 +28,9 @@
 
 [11 Optional Extensions](rvreader/11_OptionalExtensions.md)
 
----
+## Tidbits
 
-**Tidbits**
+> RISC-V汇编碎笔记
 
 [01 Byte Order](tidbits/01_byteOrder.md)
 
@@ -38,9 +40,9 @@
 
 [04 ASM and C](tidbits/04_asmAndc.md)
 
----
+## RVOS
 
-**RVOS**
+> 一个可以运行在QEMU virt虚拟机器上的RISC-V 32位操作系统
 
 [01 Startup](rvos/01_startup/note/01_startup.md)
 
@@ -64,9 +66,11 @@
 
 [11 Syscall](rvos/11_syscall/note/11_syscall.md)
 
----
+## RVEMU
 
-**RVEMU**
+> 一个RISC-V 64位模拟器，支持RV64IMFDC
+
+[指令速查](rvemu/RISC-V.pdf)
 
 [01 Startup](rvemu/01_startup/note/01_startup.md)
 
