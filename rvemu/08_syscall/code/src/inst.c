@@ -1528,12 +1528,12 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
                     MYEXIT("inst_decode fail");
                 }
             }
-            case 0x40:
+            case 0x20:
             {
                 inst->type = inst_fcvt_s_d;
                 return;
             }
-            case 0x41:
+            case 0x21:
             {
                 inst->type = inst_fcvt_d_s;
                 return;
