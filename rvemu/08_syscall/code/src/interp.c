@@ -1,6 +1,28 @@
 #include "../include/rvemu.h"
 // sgnj fclass to be complete
 
+int CSRtocsr(int csr)
+{
+    switch (csr)
+    {
+    case CSR_CYCLE:
+        return csr_cycle;
+    case CSR_FCSR:
+        return csr_fcsr;
+    case CSR_FFLAGS:
+        return csr_fflags;
+    case CSR_FRM:
+        return csr_frm;
+    case CSR_INSTRET:
+        return csr_instret;
+    case CSR_TIME:
+        return csr_time;
+    default:
+        printf("csr : %x not supported\n", csr);
+        exit(0);
+    }
+}
+
 static void func_lui(state_t *state, inst_t *inst) { UFUNC(imm); }
 static void func_auipc(state_t *state, inst_t *inst) { UFUNC(imm + state->pc); }
 static void func_jal(state_t *state, inst_t *inst)
@@ -78,7 +100,12 @@ static void func_ecall(state_t *state, inst_t *inst)
 }
 static void func_ebreak(state_t *state, inst_t *inst) { printf("ebreak !\n"); }
 static void func_csrrw(state_t *state, inst_t *inst) { printf("CSRRW Instruction ! Do Nothing !\n"); }
-static void func_csrrs(state_t *state, inst_t *inst) { printf("CSRRS Instruction ! Do Nothing !\n"); }
+static void func_csrrs(state_t *state, inst_t *inst)
+{
+    printf("before exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
+    state->gp_regs[inst->rd] = __atomic_fetch_or(&state->csr_regs[CSRtocsr(inst->csr)], state->gp_regs[inst->rs1], __ATOMIC_SEQ_CST);
+    printf("after exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
+}
 static void func_csrrc(state_t *state, inst_t *inst) { printf("CSRRC Instruction ! Do Nothing !\n"); }
 static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSRRWI Instruction ! Do Nothing !\n"); }
 static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSRRCI Instruction ! Do Nothing !\n"); }

@@ -24,6 +24,7 @@ typedef struct
     uint64_t pc;
     gp_reg_t gp_regs[num_gp_regs];
     fp_reg_t fp_regs[num_fp_regs];
+    csr_reg_t csr_regs[num_csr_regs];
     enum exit_reason_t exit_reason;
 } state_t;
 

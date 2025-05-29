@@ -85,4 +85,23 @@ typedef union
     uint32_t w;
 } fp_reg_t;
 
+#define CSR_CYCLE 0xc00
+#define CSR_TIME 0xc01
+#define CSR_INSTRET 0xc02
+#define CSR_FFLAGS 0x1
+#define CSR_FRM 0x2
+#define CSR_FCSR 0x3
+
+enum{
+    csr_cycle,
+    csr_time,
+    csr_instret,
+    csr_fflags,
+    csr_frm,
+    csr_fcsr,
+    num_csr_regs,
+};
+
+typedef uint64_t csr_reg_t;
+
 #endif
