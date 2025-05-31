@@ -351,7 +351,7 @@ void inst_decode(inst_t *inst, uint32_t raw_inst)
         case 0x0: // c.addi
         {
             *inst = inst_cimm540_read(raw_inst);
-            assert(inst->imm != 0);
+            // assert(inst->imm != 0);
             inst->type = inst_addi;
             inst->rd = CRD(raw_inst);
             inst->rs1 = CRS1(raw_inst);

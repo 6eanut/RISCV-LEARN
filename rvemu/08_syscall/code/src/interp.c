@@ -3,6 +3,7 @@
 
 int CSRtocsr(int csr)
 {
+    // https://github.com/qemu/qemu/blob/master/target/riscv/cpu_bits.h
     switch (csr)
     {
     case CSR_CYCLE:
@@ -19,7 +20,8 @@ int CSRtocsr(int csr)
         return csr_time;
     default:
         printf("csr : %x not supported\n", csr);
-        exit(0);
+        // exit(0);
+        return none;
     }
 }
 
@@ -99,15 +101,15 @@ static void func_ecall(state_t *state, inst_t *inst)
 #endif
 }
 static void func_ebreak(state_t *state, inst_t *inst) { printf("ebreak !\n"); }
-static void func_csrrw(state_t *state, inst_t *inst) { printf("CSRRW Instruction ! Do Nothing !\n"); }
+static void func_csrrw(state_t *state, inst_t *inst) { state->gp_regs[inst->rd] = __atomic_exchange_n(&state->csr_regs[CSRtocsr(inst->csr)], state->gp_regs[inst->rs1], __ATOMIC_SEQ_CST); }
 static void func_csrrs(state_t *state, inst_t *inst)
 {
-    printf("before exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
+    // printf("before exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
     state->gp_regs[inst->rd] = __atomic_fetch_or(&state->csr_regs[CSRtocsr(inst->csr)], state->gp_regs[inst->rs1], __ATOMIC_SEQ_CST);
-    printf("after exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
+    // printf("after exec, csr %x : %lx\n", inst->csr, state->csr_regs[CSRtocsr(inst->csr)]);
 }
 static void func_csrrc(state_t *state, inst_t *inst) { printf("CSRRC Instruction ! Do Nothing !\n"); }
-static void func_csrrwi(state_t *state, inst_t *inst) { printf("CSRRWI Instruction ! Do Nothing !\n"); }
+static void func_csrrwi(state_t *state, inst_t *inst) { state->gp_regs[inst->rd] = __atomic_exchange_n(&state->csr_regs[CSRtocsr(inst->csr)], (uint64_t)(uint32_t)inst->imm, __ATOMIC_SEQ_CST); }
 static void func_csrrsi(state_t *state, inst_t *inst) { printf("CSRRCI Instruction ! Do Nothing !\n"); }
 static void func_csrrci(state_t *state, inst_t *inst) { printf("CSR Instruction ! Do Nothing !\n"); }
 static void func_lwu(state_t *state, inst_t *inst) { IFUNC((int64_t)*(uint32_t *)TO_HOST(rs1 + imm)); }

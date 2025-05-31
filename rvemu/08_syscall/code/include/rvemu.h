@@ -22,7 +22,7 @@
 #include "./syscall.h"
 #include "./interp.h"
 
-#define DEBUG
+// #define DEBUG
 
 #define MYEXIT(msg)          \
     do                       \

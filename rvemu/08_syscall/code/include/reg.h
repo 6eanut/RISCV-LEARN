@@ -93,6 +93,7 @@ typedef union
 #define CSR_FCSR 0x3
 
 enum{
+    none,
     csr_cycle,
     csr_time,
     csr_instret,
