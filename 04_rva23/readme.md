@@ -17,4 +17,8 @@
 >
 > 除了RVA之外，还有RVB和RVM，它们聚焦于定制64位应用处理器和微控制器。
 
+moreinfo : [RISC-V Technical Specifications](https://riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications#Profiles)
+
 [00 &#34;B&#34; Extension for Bit Manipulation](B_Extension/readme.md)
+
+[01 &#34;V&#34; Standard Extension for Vector Operations](V_extension/readme.md)

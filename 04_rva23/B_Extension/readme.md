@@ -1,6 +1,6 @@
 # "B" Extension for Bit Manipulation, Version 1.0.0
 
-[&#34;B&#34; Extension for Bit Manipulation, Version 1.0.0](B Extension.pdf)
+[&#34;B&#34; Extension for Bit Manipulation](B_Extension.pdf)
 
 ## 1 Zb*
 
