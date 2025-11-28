@@ -36,4 +36,34 @@
 
 关于Mixed-Width和Mask的更多信息见手册原文。
 
-未完待续...
+## 4 Vector Instruction Formats / Configuration-Setting Instructions
+
+向量指令的操作数可以是向量寄存器，也可以是标量寄存器，且支持向量mask。
+
+配置设置指令主要作用于vl和vtype寄存器，以此来设置VLMUL和VSEW的值。
+
+下面通过一个具体的例子来学习(好像需要把访存/运算指令给学了才能看懂)：
+
+```asm
+# Example: Load 16-bit values, widen multiply to 32b, shift 32b result
+# right by 3, store 32b values.
+# On entry:
+#  a0 holds the total number of elements to process
+#  a1 holds the address of the source array
+#  a2 holds the address of the destination array
+loop:
+  vsetvli a3, a0, e16, m4, ta, ma # vtype = 16-bit integer vectors;
+  				  # also update a3 with vl (# of elements this iteration)
+  vle16.v v4, (a1) 		  # Get 16b vector
+  slli t1, a3, 1 		  # Multiply # elements this iteration by 2 bytes/source element
+  add a1, a1, t1 		  # Bump pointer
+  vwmul.vx v8, v4, x10 		  # Widening multiply into 32b in <v8--v15>
+
+  vsetvli x0, x0, e32, m8, ta, ma # Operate on 32b values
+  vsrl.vi v8, v8, 3
+  vse32.v v8, (a2) 		  # Store vector of 32b elements
+  slli t1, a3, 2 		  # Multiply # elements this iteration by 4 bytes/destination element
+  add a2, a2, t1 		  # Bump pointer
+  sub a0, a0, a3 		  # Decrement count by vl
+  bnez a0, loop 		  # Any more?
+```

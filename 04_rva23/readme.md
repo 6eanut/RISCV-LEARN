@@ -21,4 +21,4 @@ moreinfo : [RISC-V Technical Specifications](https://riscv.atlassian.net/wiki/sp
 
 [00 &#34;B&#34; Extension for Bit Manipulation](B_Extension/readme.md)
 
-[01 &#34;V&#34; Standard Extension for Vector Operations](V_extension/readme.md)
+[01 &#34;V&#34; Standard Extension for Vector Operations](V_Extension/readme.md)
