@@ -42,7 +42,7 @@
 
 配置设置指令主要作用于vl和vtype寄存器，以此来设置VLMUL和VSEW的值。
 
-下面通过一个具体的例子来学习(好像需要把访存/运算指令给学了才能看懂)：
+下面通过一个具体的例子来学习，[LLM](docs/example.md)来帮我理解：
 
 ```asm
 # Example: Load 16-bit values, widen multiply to 32b, shift 32b result
