@@ -19,6 +19,8 @@
 
 moreinfo : [RISC-V Technical Specifications](https://riscv.atlassian.net/wiki/spaces/HOME/pages/16154769/RISC-V+Technical+Specifications#Profiles)
 
-[00 &#34;B&#34; Extension for Bit Manipulation](B_Extension/readme.md)
+[00 B Extension for Bit Manipulation](B_Extension/readme.md)
 
-[01 &#34;V&#34; Standard Extension for Vector Operations](V_Extension/readme.md)
+[01 V Standard Extension for Vector Operations](V_Extension/readme.md)
+
+[02 H Extension for Hypervisor Support](H_Extension/readme.md)
